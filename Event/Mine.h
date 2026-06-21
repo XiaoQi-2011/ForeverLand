@@ -22,7 +22,7 @@ const Lottery<int> mines[mineNumber] {
 };
 const int levels[mineNumber] = {0, 10, 30, 50, 70, 90};
 const int mineLevels[mineNumber] = { 1, 2, 3, 4, 5, 6};
-const string mineNames[mineNumber] = {"±í²ã¿óÇø", "Ç³²ã¿óÇø", "ÖĞ²ã¿óÇø", "Éî²ã¿óÇø", "Ô¶¹ÅÃØ¾³", "?ÉñÃØÖ®µØ?"};
+const string mineNames[mineNumber] = {"è¡¨å±‚çŸ¿åŒº", "æµ…å±‚çŸ¿åŒº", "ä¸­å±‚çŸ¿åŒº", "æ·±å±‚çŸ¿åŒº", "è¿œå¤ç§˜å¢ƒ", "?ç¥ç§˜ä¹‹åœ°?"};
 
 bool canMine = true;
 int stamina = 100;
@@ -46,21 +46,21 @@ inline void Mine(Player& player, int choice) {
 
     system("cls");
     printf("--%s--\n", mineNames[choice].c_str());
-    printf(">°´%c¼üÍÚ¾ò£¬°´esc¼ü·µ»Ø\n\n", mineKey);
+    printf(">æŒ‰%cé”®æŒ–æ˜ï¼ŒæŒ‰escé”®è¿”å›\n\n", mineKey);
     Lottery<int> mine = mines[choice];
     while (true) {
         int key = _getch();
         if (key == mineKey) {
             if (!canMine) continue;
             if (stamina <= 0) {
-                printf("ÄãµÄÌåÁ¦ÒÑºÄ¾¡!\n\n");
+                printf("ä½ çš„ä½“åŠ›å·²è€—å°½!\n\n");
                 canMine = false;
                 continue;
             }
             int object = mine.lottery();
             string item = player.items[object]->name;
             player.items[object]->count ++;
-            printf("ÄãÍÚµ½ÁË %s¡Á1 (µ±Ç°ÓµÓĞ %d ¸ö)\n\n", item.c_str(), player.items[object]->count);
+            printf("ä½ æŒ–åˆ°äº† %sÃ—1 (å½“å‰æ‹¥æœ‰ %d ä¸ª)\n\n", item.c_str(), player.items[object]->count);
             canMine = false;
             stamina --;
         }
@@ -74,18 +74,18 @@ inline void Mine(Player& player, int choice) {
 inline void MineMenu(Player& player) {
     Mine:
     system("cls");
-    printf("--¿óÇø--\n\n");
+    printf("--çŸ¿åŒº--\n\n");
     for (int i = 0; i < mineNumber; i++) {
         memset(tong, 0, sizeof(tong));
         if (player.getData(0) < levels[i]) {
-            printf("\033[1;30m-[ÏÂÒ»¸ö¿óÇø½«ÔÚ´ïµ½ Lv.%d ºó½âËø]-\033[0m\n\n", levels[i]);
+            printf("\033[1;30m-[ä¸‹ä¸€ä¸ªçŸ¿åŒºå°†åœ¨è¾¾åˆ° Lv.%d åè§£é”]-\033[0m\n\n", levels[i]);
             break;
         }
         for (auto obj : mines[i].objects) {
             tong[obj.object] = obj.percent;
         }
-        printf("%d.%s(Lv.%d+ ÍÚ¾òµÈ¼¶ %d+)\n", i + 1, mineNames[i].c_str(), levels[i], mineLevels[i]);
-        printf("[¿ó²ú] ");
+        printf("%d.%s(Lv.%d+ æŒ–æ˜ç­‰çº§ %d+)\n", i + 1, mineNames[i].c_str(), levels[i], mineLevels[i]);
+        printf("[çŸ¿äº§] ");
         for (int j = 0; j < ITEM_NUM; j++) {
             if (tong[j] == 0) continue;
             if (init_item[j].type == "mineral" || init_item[j].type == "lingshi") {
@@ -93,7 +93,7 @@ inline void MineMenu(Player& player) {
             }
         }
         printf("\n");
-        printf("[ÌØÊâ] ");
+        printf("[ç‰¹æ®Š] ");
         for (int j = 0; j < ITEM_NUM; j++) {
             if (tong[j] == 0) continue;
             if (init_item[j].type == "chest") {
@@ -103,19 +103,19 @@ inline void MineMenu(Player& player) {
         printf("\n\n");
     }
 
-    cout << "ÇëÊäÈëĞòºÅ:" << endl;
+    cout << "è¯·è¾“å…¥åºå·:" << endl;
     int choice = getChoice(1, mineNumber);
     if (choice == -1) goto Mine;
     if (choice == -2) return;
     choice --;
 
     if (player.getData(16) < mineLevels[choice]) {
-        cout << "ÍÚ¾òµÈ¼¶²»×ã!" << endl;
+        cout << "æŒ–æ˜ç­‰çº§ä¸è¶³!" << endl;
         system("pause");
         goto Mine;
     }
     if (player.getData(0) < levels[choice]) {
-        cout << "µÈ¼¶²»×ã!" << endl;
+        cout << "ç­‰çº§ä¸è¶³!" << endl;
         system("pause");
         goto Mine;
     }

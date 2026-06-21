@@ -13,41 +13,41 @@ void changePassword(Player& player) {
     changePassword:
     system("cls");
     string oldPassword, newPassword;
-    cout << "ÇëÊäÈëÔ­ÃÜÂë:" << endl;
+    cout << "è¯·è¾“å…¥åŸå¯†ç :" << endl;
     cin >> oldPassword;
     if (oldPassword == "back") return;
     if (oldPassword != player.password) {
-        cout << "ÃÜÂë´íÎó!" << endl;
+        cout << "å¯†ç é”™è¯¯!" << endl;
         system("pause");
         goto changePassword;
     }
-    cout << "ÇëÊäÈëĞÂÃÜÂë:" << endl;
+    cout << "è¯·è¾“å…¥æ–°å¯†ç :" << endl;
     if (newPassword == "back") return;
     cin >> newPassword;
     player.password = newPassword;
-    cout << "ÃÜÂëĞŞ¸Ä³É¹¦!" << endl;
+    cout << "å¯†ç ä¿®æ”¹æˆåŠŸ!" << endl;
     system("pause");
 }
 // 2
 void setKey(Player& player) {
     setKey:
     system("cls");
-    printf("°´¼üÉèÖÃ:\n\n");
+    printf("æŒ‰é”®è®¾ç½®:\n\n");
     vector<string> keys = split(player.getStrData(2), '$');
-    // ÏÔÊ¾°´¼ü
-    printf("1.¹¥»÷/ÍÚ¾ò: %s\n", keys[0].c_str());
-    printf("2.²é¿´Ò©Ë®: %s\n", keys[1].c_str());
+    // æ˜¾ç¤ºæŒ‰é”®
+    printf("1.æ”»å‡»/æŒ–æ˜: %s\n", keys[0].c_str());
+    printf("2.æŸ¥çœ‹è¯æ°´: %s\n", keys[1].c_str());
     for (int i = 2; i <= 7; i++) {
         string itemName = init_item[i - 2 + 57].name;
-        printf("%d.Ê¹ÓÃ%s: %s\n", i+1, itemName.c_str(), keys[i].c_str());
+        printf("%d.ä½¿ç”¨%s: %s\n", i+1, itemName.c_str(), keys[i].c_str());
     }
 
-    printf("\nÇëÊäÈëĞòºÅ: \n");
+    printf("\nè¯·è¾“å…¥åºå·: \n");
     int choice = getChoice(1, 8);
     if (choice == -1) goto setKey;
     if (choice == -2) return;
 
-    printf("Çë°´ÏÂ°´¼ü: \n");
+    printf("è¯·æŒ‰ä¸‹æŒ‰é”®: \n");
     char c = (char)_getch();
     keys[choice - 1] = c;
     stringstream ss;
@@ -61,7 +61,7 @@ void setKey(Player& player) {
 void getGift(Player& player) {
     getGift:
     system("cls");
-    cout << "ÇëÊäÈëÀñ°ü¶Ò»»Âë:" << endl;
+    cout << "è¯·è¾“å…¥ç¤¼åŒ…å…‘æ¢ç :" << endl;
     string code;
     cin >> code;
     if (code == "back") return;
@@ -72,17 +72,17 @@ void getGift(Player& player) {
             if (start_with(item.type, "equipment")) item.count = 2;
             else item.count = 100;
         }
-        cout << "¶Ò»»³É¹¦!" << endl;
+        cout << "å…‘æ¢æˆåŠŸ!" << endl;
         system("pause");
         goto getGift;
     }
     // /setitem
     if (code == "1#77") {
-        cout << "ÇëÊäÈëÎïÆ·IDºÍÊıÁ¿:" << endl;
+        cout << "è¯·è¾“å…¥ç‰©å“IDå’Œæ•°é‡:" << endl;
         int id, count;
         cin >> id >> count;
         if (id < 0 || id > ITEM_NUM) {
-            cout << "ÎŞĞ§µÄÎïÆ·ID!" << endl;
+            cout << "æ— æ•ˆçš„ç‰©å“ID!" << endl;
             system("pause");
             goto getGift;
         }
@@ -91,18 +91,18 @@ void getGift(Player& player) {
     }
     // /setdata
     if (code == "1=O7") {
-        cout << "ÇëÊäÈëÊı¾İIDºÍÊıÁ¿:" << endl;
+        cout << "è¯·è¾“å…¥æ•°æ®IDå’Œæ•°é‡:" << endl;
         int id, count;
         cin >> id >> count;
         if (id < 0 || id > DATA_NUM) {
-            cout << "ÎŞĞ§µÄÊı¾İID!" << endl;
+            cout << "æ— æ•ˆçš„æ•°æ®ID!" << endl;
             system("pause");
             goto getGift;
         }
         player.data[id]->value = count;
         goto getGift;
     }
-    cout << "ÎŞĞ§µÄ¶Ò»»Âë!" << endl;
+    cout << "æ— æ•ˆçš„å…‘æ¢ç !" << endl;
     system("pause");
     goto getGift;
 }
@@ -110,7 +110,7 @@ void getGift(Player& player) {
 void test(Player& player) {
     test:
     system("cls");
-    cout << "ÊäÈë²âÊÔÂë:" << endl;
+    cout << "è¾“å…¥æµ‹è¯•ç :" << endl;
     string code;
     getline(cin, code);
     if (code == "back") return;
@@ -126,14 +126,14 @@ void test(Player& player) {
 // 5
 void about() {
     system("cls");
-    printf("-¹ØÓÚ- \n\n");
-    cout << "×÷Õß: XiaoQi" << endl;
-    cout << "°æ±¾: " << version << endl;
-    cout << "Github: https://github.com/XiaoQi-2011/ForeverLand (ÔİÊ±Ã»ÓĞ)" << endl;
+    printf("-å…³äº- \n\n");
+    cout << "ä½œè€…: XiaoQi" << endl;
+    cout << "ç‰ˆæœ¬: " << version << endl;
+    cout << "Github: https://github.com/XiaoQi-2011/ForeverLand (æš‚æ—¶æ²¡æœ‰)" << endl;
     cout << endl;
 
-    // ×°±¸Æ·ÖÊ
-    printf("×°±¸Æ·ÖÊ(´ÓµÍµ½¸ß): \n\n");
+    // è£…å¤‡å“è´¨
+    printf("è£…å¤‡å“è´¨(ä»ä½åˆ°é«˜): \n\n");
     for (int i = 0; i <= 5; i++) {
         printf("%s%s\n", item_quality[i].second.c_str(), item_quality[i].first.c_str());
     }
@@ -142,23 +142,23 @@ void about() {
     int back_ground = light ? Random(41, 47) : Random(101, 107);
     sprintf(colour, item_quality[6].second.c_str(), back_ground);
     string color = colour;
-    printf("%s%s[n½×]\033[0m\n", color.c_str(), item_quality[6].first.c_str());
+    printf("%s%s[né˜¶]\033[0m\n", color.c_str(), item_quality[6].first.c_str());
     cout << endl;
 
-    printf("[Ğ¡ÌáÊ¾]: win10ÓÃ»§½«cmd×ÖÌåµ÷ÎªºÚÌåĞ§¹û¸ü¼Ñ!\n\n");
-    printf("ÍÚ¿óÃ¿ÍÚÒ»ÏÂËğÊ§1µãÌåÁ¦\n\n");
+    printf("[å°æç¤º]: win10ç”¨æˆ·å°†cmdå­—ä½“è°ƒä¸ºé»‘ä½“æ•ˆæœæ›´ä½³!\n\n");
+    printf("æŒ–çŸ¿æ¯æŒ–ä¸€ä¸‹æŸå¤±1ç‚¹ä½“åŠ›\n\n");
     system("pause");
 }
 //Menu
 inline void setting(Player& player) {
     setting:
     system("cls");
-    printf("-ÉèÖÃ-\n\n");
-    cout << "1.ĞŞ¸ÄÃÜÂë" << endl;
-    cout << "2.°´¼üÉèÖÃ" << endl;
-    cout << "3.»ñÈ¡Àñ°ü" << endl;
-    cout << "4.²âÊÔ" << endl;
-    cout << "5.ËµÍæ·¨Ã÷" << endl;
+    printf("-è®¾ç½®-\n\n");
+    cout << "1.ä¿®æ”¹å¯†ç " << endl;
+    cout << "2.æŒ‰é”®è®¾ç½®" << endl;
+    cout << "3.è·å–ç¤¼åŒ…" << endl;
+    cout << "4.æµ‹è¯•" << endl;
+    cout << "5.è¯´ç©æ³•æ˜" << endl;
     cout << endl;
     int choice = getChoice(1, 5);
     if (choice == -1) goto setting;

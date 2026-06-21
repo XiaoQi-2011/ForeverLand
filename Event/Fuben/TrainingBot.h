@@ -10,36 +10,36 @@ const int botShuxing[]{
 };
 void trainingBot(Player player) {
     Entity bot;
-    bot.name = "—µ¡∑ºŸ»À";
+    bot.name = "ËÆ≠ÁªÉÂÅá‰∫∫";
     for (int i = 4; i <= 14; i++) {
         bot.data[i]->value = botShuxing[i-3];
     }
     while (true) {
         system("cls");
-        cout << "—µ¡∑ºŸ»À Ù–‘:" << endl << endl;
-        cout << "1.π•ª˜¡¶: " << bot.getData(4) << endl;
-        cout << "2.∑¿”˘¡¶: " << bot.getData(5)<< endl;
-        cout << "3.…˙√¸÷µ: " << bot.getData(6)<< endl;
-        cout << "4.…˙√¸…œœﬁ: " << bot.getData(7)<< endl;
-        cout << "5.…À∫¶º”≥…%: " << bot.getData(8)<< endl;
-        cout << "6.…À∫¶ºı√‚%: " << bot.getData(9)<< endl;
-        cout << "7.…¡±‹∏≈¬ %: " << bot.getData(10)<< endl;
-        cout << "8.Œ¸—™∏≈¬ %: " << bot.getData(11)<< endl;
-        cout << "9.Œ¸—™±»¬ %: " << bot.getData(12)<< endl;
-        cout << "10.±©ª˜±»¬ %: " << bot.getData(13)<< endl;
-        cout << "11.π•ª˜ÀŸ∂»: " << bot.getData(14)<< endl;
-        cout << "12.ø™ º" << endl;
-        cout << "\n«Î ‰»Î Ù–‘–Ú∫≈:" << endl;
+        cout << "ËÆ≠ÁªÉÂÅá‰∫∫Â±ûÊÄß:" << endl << endl;
+        cout << "1.ÊîªÂáªÂäõ: " << bot.getData(4) << endl;
+        cout << "2.Èò≤Âæ°Âäõ: " << bot.getData(5)<< endl;
+        cout << "3.ÁîüÂëΩÂÄº: " << bot.getData(6)<< endl;
+        cout << "4.ÁîüÂëΩ‰∏äÈôê: " << bot.getData(7)<< endl;
+        cout << "5.‰º§ÂÆ≥Âä†Êàê%: " << bot.getData(8)<< endl;
+        cout << "6.‰º§ÂÆ≥ÂáèÂÖç%: " << bot.getData(9)<< endl;
+        cout << "7.Èó™ÈÅøÊ¶ÇÁéá%: " << bot.getData(10)<< endl;
+        cout << "8.Âê∏Ë°ÄÊ¶ÇÁéá%: " << bot.getData(11)<< endl;
+        cout << "9.Âê∏Ë°ÄÊØîÁéá%: " << bot.getData(12)<< endl;
+        cout << "10.Êö¥ÂáªÊØîÁéá%: " << bot.getData(13)<< endl;
+        cout << "11.ÊîªÂáªÈÄüÂ∫¶: " << bot.getData(14)<< endl;
+        cout << "12.ÂºÄÂßã" << endl;
+        cout << "\nËØ∑ËæìÂÖ•Â±ûÊÄßÂ∫èÂè∑:" << endl;
         int choice = getChoice(1, 12);
         if (choice == 12) {
             bot.data[6]->value = bot.getData(7);
-            createFightArea(player, "—µ¡∑ºŸ»À");
+            createFightArea(player, "ËÆ≠ÁªÉÂÅá‰∫∫");
             fight(player, bot, player);
             continue;
         }
         if (choice == -1) continue;
         if (choice == -2) return;
-        cout << "«Î ‰»Î Ù–‘÷µ:" << endl;
+        cout << "ËØ∑ËæìÂÖ•Â±ûÊÄßÂÄº:" << endl;
         int value = getChoice(0, 2147483647);
         if (value == -1 || value == -2) continue;
 

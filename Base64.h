@@ -25,7 +25,7 @@ inline string generate_base64_table(const size_t seed) {
     return table;
 }
 
-// ?§Ø?????? Base64 ???
+// ?Ğ¶?????? Base64 ???
 inline bool is_base64(char c, const string& table) {
     return table.find(c) != string::npos;
 }

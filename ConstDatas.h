@@ -96,7 +96,7 @@ inline void initEquipmentItem() {
             if (values[i - DStart] != 0) {
                 if (!flag) {
                     if (!init_item[id].introduce.empty()) ss << "\n";
-                    ss << "[»ù´¡] ";
+                    ss << "[åŸºç¡€] ";
                     flag = true;
                 }
                 ss << init_data[i].name << "+" << values[i - DStart] << " ";
@@ -107,7 +107,7 @@ inline void initEquipmentItem() {
         for (int i = 0; i < values.size(); i++) {
             if (values[i] != 0 && !Etong[i + DStart]) {
                 if (!flag) {
-                    ss << "\n[ÊôÐÔ] ";
+                    ss << "\n[å±žæ€§] ";
                     flag = true;
                 }
                 ss << init_data[i + DStart].name << "+" << values[i] << " ";

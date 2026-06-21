@@ -7,25 +7,25 @@ using namespace std;
 
 void infiniteTrials(Player& player) {
     system("cls");
-    createFightArea(player, "-ÎŞ¾¡ÊÔÁ¶-");
+    createFightArea(player, "-æ— å°½è¯•ç‚¼-");
     int level = 0;
     Player fakePlayer = player;
     while (++level) {
-        printf("\n\033[1;32m>Äãµ½´ïÁËµÚ%d²ã\033[0m\n", level);
-        printf("\033[1;34mÄãµ±Ç°ÑªÁ¿:\033[1;31m%d/%d ", fakePlayer.getData(6), fakePlayer.getData(7));
+        printf("\n\033[1;32m>ä½ åˆ°è¾¾äº†ç¬¬%då±‚\033[0m\n", level);
+        printf("\033[1;34mä½ å½“å‰è¡€é‡:\033[1;31m%d/%d ", fakePlayer.getData(6), fakePlayer.getData(7));
         int healthP = fakePlayer.getData(6) * 100 / fakePlayer.getData(7);
         cout << healthColors[healthP / 20] << healthP << "%\033[0m\n" << endl;
 
-        Entity entity = createMonster("ÊÔÁ¶ÊØÎÀ", level, true);
+        Entity entity = createMonster("è¯•ç‚¼å®ˆå«", level, true);
         bool isContinue = level != 1;
         bool wins = fight(fakePlayer, entity, player, isContinue);
         if (!wins) break;
     }
     level --;
-    printf("\n\033[1;32m-----ÊÔÁ¶½áÊø-----\033[0m\n");
+    printf("\n\033[1;32m-----è¯•ç‚¼ç»“æŸ-----\033[0m\n");
     int jb = pow(level/10, 2) * 20 + (level % 10) * 5;
     int zs = pow(level/10, 2) * 1.5 + (level % 10) / 2;
-    printf("\033[1;32m[½áËã]\033[0m +%d½ğ±Ò +%d×êÊ¯\n", jb, zs);
+    printf("\033[1;32m[ç»“ç®—]\033[0m +%dé‡‘å¸ +%dé’»çŸ³\n", jb, zs);
     player.data[2]->value += jb;
     player.data[3]->value += zs;
     system("pause");
