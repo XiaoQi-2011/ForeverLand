@@ -1,0 +1,46 @@
+[
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\main.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\main.cpp.obj -c D:\\Project\\C++\\ForeverLand\\main.cpp",
+  "file": "D:/Project/C++/ForeverLand/main.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/main.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\windres.exe -O coff D:\\Project\\C++\\ForeverLand\\app.rc CMakeFiles\\ForeverLand.dir\\app.rc.obj",
+  "file": "D:/Project/C++/ForeverLand/app.rc",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/app.rc.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\Adventure.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\Adventure.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Event\\Fuben\\Adventure.cpp",
+  "file": "D:/Project/C++/ForeverLand/Event/Fuben/Adventure.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/Event/Fuben/Adventure.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\InfiniteTower.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\InfiniteTower.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Event\\Fuben\\InfiniteTower.cpp",
+  "file": "D:/Project/C++/ForeverLand/Event/Fuben/InfiniteTower.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/Event/Fuben/InfiniteTower.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\InfiniteTrials.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Event\\Fuben\\InfiniteTrials.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Event\\Fuben\\InfiniteTrials.cpp",
+  "file": "D:/Project/C++/ForeverLand/Event/Fuben/InfiniteTrials.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/Event/Fuben/InfiniteTrials.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Event\\Fighting.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Event\\Fighting.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Event\\Fighting.cpp",
+  "file": "D:/Project/C++/ForeverLand/Event/Fighting.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/Event/Fighting.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Lib\\Data.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Lib\\Data.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Lib\\Data.cpp",
+  "file": "D:/Project/C++/ForeverLand/Lib/Data.cpp",
+  "output": "D:/Project/C++/ForeverLand/cmake-build-debug/CMakeFiles/ForeverLand.dir/Lib/Data.cpp.obj"
+},
+{
+  "directory": "D:/Project/C++/ForeverLand/cmake-build-debug",
+  "command": "D:\\mingw64\\bin\\c++.exe -g -std=gnu++20 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\ForeverLand.dir\\Event\\Mine.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\ForeverLand.dir\\Event\\Mine.cpp.obj -c D:\\Project\\C++\\ForeverLand\\Even

@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\ForeverLand.dir\\Event\\InventoryEvent.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
