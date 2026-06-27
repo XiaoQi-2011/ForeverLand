@@ -42,8 +42,8 @@ inline Entity createMonster(const std::string& name, int level, bool showLevel, 
 {
     Entity monster;
     // 特殊
-    if (dayPeriod == 3)
-    {
+    override += difficulty * 0.2f;
+    if (dayPeriod == 3) {
         override += 0.1;
     }
     // 数据

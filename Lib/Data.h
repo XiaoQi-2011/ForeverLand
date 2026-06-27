@@ -11,6 +11,7 @@
 #include "StrData.h"
 
 static int dayPeriod = 1;
+static int difficulty = 0;
 
 struct Data
 {

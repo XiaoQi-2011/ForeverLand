@@ -2,6 +2,7 @@
 #define CONSTDATAS_H
 
 #include <utility>
+#include <cstring>
 
 #include "Data.h"
 

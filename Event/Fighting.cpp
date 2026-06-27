@@ -296,7 +296,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         real_player.items[57]->count--;
                         meHealth += health;
                         meHealth = meHealth > player.getData(7) ? player.getData(7) : meHealth;
-                        printf("\033[1;31m[+]你使用了小型治疗药水 +%d生命值 (剩余%d瓶)，\033[1;34m你的血量:\033[1;31m%d/%d ",
+                        printf("\033[1;31m[+]你使用了小型治疗药水 +%d生命值 \033[0m(剩余\033[0;36m%d\033[0m瓶)，\033[1;34m你的血量:\033[1;31m%d/%d ",
                                health, real_player.getItem(item_id),meHealth, fPlayer->getData(7));
                         int healthP = meHealth * 100 / fPlayer->getData(7);
                         std::cout << healthColors[healthP / 20] << healthP << "%\033[0m" << std::endl;
@@ -313,7 +313,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         real_player.items[58]->count--;
                         meHealth += health;
                         meHealth = meHealth > player.getData(7) ? player.getData(7) : meHealth;
-                        printf("\033[1;31m[+]你使用了大型治疗药水 +%d生命值 (剩余%d瓶)，\033[1;34m你的血量:\033[1;31m%d/%d ",
+                        printf("\033[1;31m[+]你使用了大型治疗药水 +%d生命值 \033[0m(剩余\033[0;36m%d\033[0m瓶)，\033[1;34m你的血量:\033[1;31m%d/%d ",
                                health, real_player.getItem(item_id),meHealth, fPlayer->getData(7));
                         int healthP = meHealth * 100 / fPlayer->getData(7);
                         std::cout << healthColors[healthP / 20] << healthP << "%\033[0m" << std::endl;
@@ -329,7 +329,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         strength = 4;
                         real_player.items[59]->count--;
                         player.data[8]->value += strength;
-                        printf("\033[1;33m[+]你使用了小型力量药水 +%d%%伤害加成 (剩余%d瓶)\033[0m\n", strength,
+                        printf("\033[38;2;237;177;12m[+]你使用了小型力量药水 +%d%%伤害加成 \033[0m(剩余\033[0;36m%d\033[0m瓶)\033[0m\n", strength,
                                real_player.getItem(item_id));
                     }
                     else std::printf("药水冷却中，剩余%d秒\n", strengthCD);
@@ -343,7 +343,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         strength = 8;
                         real_player.items[60]->count--;
                         player.data[8]->value += strength;
-                        printf("\033[1;33m[+]你使用了大型力量药水 +%d%%伤害加成 (剩余%d瓶)\033[0m\n", strength,
+                        printf("\033[38;2;237;177;12m[+]你使用了大型力量药水 +%d%%伤害加成 \033[0m(剩余\033[0;36m%d\033[0m瓶)\033[0m\n", strength,
                                real_player.getItem(item_id));
                     }
                     else std::printf("药水冷却中，剩余%d秒\n", strengthCD);
@@ -357,7 +357,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         resistance = 5;
                         real_player.items[61]->count--;
                         player.data[9]->value += resistance;
-                        printf("\033[1;30m[+]你使用了小型抗性药水 +%d%%伤害减免 (剩余%d瓶)\033[0m\n", resistance,
+                        printf("\033[1;30m[+]你使用了小型抗性药水 +%d%%伤害减免 \033[0m(剩余\033[0;36m%d\033[0m瓶)\033[0m\n", resistance,
                                real_player.getItem(item_id));
                     }
                     else std::printf("药水冷却中，剩余%d秒\n", resistanceCD);
@@ -371,7 +371,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                         resistance = 10;
                         real_player.items[62]->count--;
                         player.data[9]->value += resistance;
-                        printf("\033[1;30m[+]你使用了大型抗性药水 +%d%%伤害减免 (剩余%d瓶)\033[0m\n", resistance,
+                        printf("\033[1;30m[+]你使用了大型抗性药水 +%d%%伤害减免 \033[0m(剩余\033[0;36m%d\033[0m瓶)\033[0m\n", resistance,
                                real_player.getItem(item_id));
                     }
                     else std::printf("药水冷却中，剩余%d秒\n", resistanceCD);

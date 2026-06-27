@@ -13,8 +13,12 @@ inline int getExpMax(Player player)
 
 Player player;
 std::string name;
+
 long long tick = 0;
 int hour = 7, minute = 0;
+
+std::pair<std::string, int> worldState = {"平平无奇的一天", 0};
+
 std::string dayPeriods[]{
     "\033[0;36m凌晨\033[0m",
     "\033[1;37m上午\033[0m",
@@ -160,19 +164,19 @@ int main()
         hour = player.getWorldData(1) / 60;
         minute = player.getWorldData(1) % 60;
         dayPeriod = periods[hour];
+        difficulty = player.getWorldData(3);
 
         // 启动线程
         std::thread(playerLoop).detach();
         std::thread(worldLoop).detach();
         std::thread(MineLoop).detach();
-        std::thread(escKeyListener).detach();
 
         // 主循环
         while (true)
         {
             const int exp_max = getExpMax(player);
             system("cls");
-            system("title 永恒大陆");
+            system("title ForeverLand");
             std::printf("欢迎来到【永恒大陆】 (按下ESC返回上级) \n");
             if (player.getData(26) > 0) std::printf("\033[1;31m[%d级神]", player.getData(26));
             std::printf("[lv.%d] %s\033[0m\n", player.getData(0), name.c_str());
@@ -181,6 +185,8 @@ int main()
             std::printf("[攻击力] %d  [防御力] %d [生命值] %d/%d\n", player.getData(4), player.getData(5), player.getData(6),
                    player.getData(7));
             std::printf("[时间] 第%d天 %d:%02d (%s) \n", player.getWorldData(2) + 1, hour, minute, dayPeriods[dayPeriod].c_str());
+            std::printf("[世界] %s [%s]\n", worldState.first.c_str(), difficulties[difficulty].c_str());
+            std::cout << std::endl;
             std::cout << "\033[4m菜单\033[0m:" << std::endl << std::endl;
             std::cout << "1.个人信息" << std::endl;
             std::cout << "2.物品栏" << std::endl;

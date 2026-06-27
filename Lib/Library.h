@@ -14,6 +14,13 @@
 constexpr std::string version = "1.0.2";
 inline long long second = 0;
 inline std::mt19937 gen;
+inline std::string difficulties[] = {
+        "\033[0;37m简单\033[0m",
+        "\033[1;37m普通\033[0m",
+        "\033[1;34m中等\033[0m",
+        "\033[1;31m困难\033[0m",
+        "\033[0;31m噩梦\033[0m"
+};
 
 inline std::string getFormatSystemTime(long long time)
 {
@@ -32,7 +39,7 @@ inline std::string getFormatSystemTime(long long time)
 inline void ListUsers(const std::filesystem::path& path)
 {
     std::vector<Player> users;
-    int wide1 = 0, wide2 = 0, wide3 = 0;
+    int wide1 = 0, wide2 = 0;
     for (const auto& entry : std::filesystem::directory_iterator(path))
     {
         std::string filename = entry.path().filename().generic_string();
@@ -51,10 +58,12 @@ inline void ListUsers(const std::filesystem::path& path)
     {
         std::string level = "[Lv." + std::to_string(player.getData(0)) + "]";
         std::string time = "创建时间:" + getFormatSystemTime(player.createTime);
+        std::string difficulty = difficulties[player.getWorldData(3)];
         std::cout << std::left
             << std::setw(wide1) << player.name
             << std::setw(wide2) << level
-            << std::setw(wide3) << time
+            << difficulty << "  "
+            << time
             << std::endl;
     }
 }
@@ -174,6 +183,7 @@ inline constexpr std::string pathString = "Users\\";
 
 inline std::string login()
 {
+    std::thread(escKeyListener).detach();
 LOGIN:
     system("cls");
     system("title 登录");
@@ -188,6 +198,9 @@ LOGIN:
     int choice = getChoice(1, 2);
     if (choice == -1 || choice == -2) goto LOGIN;
 
+    if (!std::filesystem::exists(pathString)) {
+        std::filesystem::create_directory(pathString);
+    }
     std::string path;
     system("cls");
 
@@ -209,13 +222,13 @@ LOGIN:
         if (success == Player::fileType::NO_EXISTS)
         {
             std::cout << "用户不存在！" << std::endl;
-            getchar();
+            system("pause");
             goto LOGIN;
         }
         if (success == Player::fileType::DATA_ERROR)
         {
             std::cout << "用户数据已损坏！" << std::endl;
-            getchar();
+            system("pause");
             goto LOGIN;
         }
         if (player.password == password)
@@ -224,7 +237,7 @@ LOGIN:
         }
 
         std::cout << "密码错误！" << std::endl;
-        getchar();
+        system("pause");
     }
 
     if (choice == 2)
@@ -233,13 +246,26 @@ LOGIN:
         std::cout << "请输入用户名: \n";
         std::cin >> name;
         if (name == "back") goto LOGIN;
+
         path = pathString + name + endString;
         std::cout << "请输入密码: \n";
         std::cin >> password;
         if (password == "back") goto LOGIN;
+
         std::cout << "请输入确认密码: \n";
         std::string confirm_password;
         std::cin >> confirm_password;
+
+        std::cout << "请选择游戏难度: \n";
+        for (int i = 0; i < 5; i++) {
+            std::cout << i + 1 << ". " << difficulties[i] << std::endl;
+        }
+        //std::cout << "\n";
+        int difficulty;
+        getchar();
+        difficulty = getChoice(1, 5);
+        if (difficulty == -1 || difficulty == -2) goto LOGIN;
+
         if (confirm_password == "back") goto LOGIN;
         if (password == confirm_password)
         {
@@ -247,10 +273,20 @@ LOGIN:
             std::ofstream fout(path);
             fout << getInitString(password);
             fout.close();
+
+            // 玩家内部数据修改
+            Player player(path);
+            player.readFile();
+
+            player.worldData[3]->value = difficulty - 1;
+
+            player.writeFile();
+
             return name;
         }
 
         std::cout << "两次密码输入不一致！" << std::endl;
+        system("pause");
     }
 
     goto LOGIN;

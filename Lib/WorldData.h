@@ -1,7 +1,7 @@
 #ifndef WORLDDATA_H
 #define WORLDDATA_H
 
-#define WORLDDATA_NUM 3
+#define WORLDDATA_NUM 4
 
 #include <string>
 
@@ -43,12 +43,13 @@ struct WorldData
     }
 };
 
-inline const WorldData::data (&getInitWorldData())[3]
+inline const WorldData::data (&getInitWorldData())[4]
 {
     static const WorldData::data init_worldData[]{
         WorldData::data("无尽之塔层数", 1, "fuben_infiniteTower"),
         WorldData::data("游玩时长/s", 420, "time_second"),
         WorldData::data("游玩天数", 0, "time_day"),
+        WorldData::data("游戏难度", 0, "difficulty"),
     };
     return init_worldData;
 }

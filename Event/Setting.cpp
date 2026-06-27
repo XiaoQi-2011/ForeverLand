@@ -73,7 +73,7 @@ getGift:
             else item.count = 100;
         }
         std::cout << "兑换成功!" << std::endl;
-        getchar();
+        system("pause");
         goto getGift;
     }
     // /setitem
@@ -85,7 +85,7 @@ getGift:
         if (id < 0 || id > ITEM_NUM)
         {
             std::cout << "无效的物品ID!" << std::endl;
-            getchar();
+            system("pause");
             goto getGift;
         }
         player.items[id]->count = count;
@@ -100,14 +100,14 @@ getGift:
         if (id < 0 || id > DATA_NUM)
         {
             std::cout << "无效的数据ID!" << std::endl;
-            getchar();
+            system("pause");
             goto getGift;
         }
         player.data[id]->value = count;
         goto getGift;
     }
     std::cout << "无效的兑换码!" << std::endl;
-    getchar();
+    system("pause");
     goto getGift;
 }
 
@@ -125,7 +125,7 @@ test:
         {
             printf("%s(%s): %d\n", data.name.c_str(), data.type.c_str(), data.value);
         }
-        getchar();
+        system("pause");
         goto test;
     }
     goto test;
