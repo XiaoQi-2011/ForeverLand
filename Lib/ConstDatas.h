@@ -73,6 +73,7 @@ const EData EquipmentData[]{
     EData(89, {132, 0, 0, 0, 22, 0, 0, 17, 19, 17, 55, 0, 0}),
 
     EData(90, {40, 20, 80, 80, 10, 8, 0, 5, 5, 10, 0, 0, 0}),
+    EData(89, {157, 0, 0, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0}),
 };
 
 inline EData getEquipmentData(int itemID)
@@ -129,6 +130,10 @@ inline void initEquipmentItem()
                 ss << getInitData()[i + DStart].name << "+" << values[i] << " ";
             }
         }
+        if (init_item[id].quality < 7)
+        {
+            init_item[id].introduce += ss.str();
+        }
         if (init_item[id].quality == 7)
         {
             int colour = init_item[id].back_ground < 50
@@ -137,9 +142,10 @@ inline void initEquipmentItem()
             std::string color = "\033[" + std::to_string(colour) + "m";
             init_item[id].introduce += color + ss.str() + "\033[0m";
         }
-        else
+        if (init_item[id].quality == 8)
         {
             init_item[id].introduce += ss.str();
+            init_item[id].color.paint(init_item[id].name, init_item[id].introduce);
         }
     }
 }

@@ -1,10 +1,12 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#define ITEM_NUM 104
+#define ITEM_NUM 105
 
 #include <string>
+#include <utility>
 #include <vector>
+#include "Color.h"
 
 const std::string showQualityWhiteList[] =
 {
@@ -27,6 +29,36 @@ const std::pair<std::string, std::string> item_quality[] = {
     {"[神器]", "\033[1;31m\033[5;31;%dm"},
 };
 
+struct Colors {
+    std::vector<color> colors;
+
+    enum Type {
+        shenqi,
+        Gradient,
+    } type;
+
+    Colors() = default;
+    Colors(std::vector<color> colors, Type type) {
+        this->colors = std::move(colors);
+        this->type = type;
+    }
+
+    color* operator[] (int index) {
+        return &colors[index];
+    }
+
+    void paint(std::string& name, std::string& introduce) {
+        switch (type) {
+            case Gradient: {
+                name = getGradientString(colors[0], colors[1], name);
+                introduce = getGradientString(colors[2], colors[3], introduce);
+                break;
+            }
+        }
+    }
+
+};
+
 struct Item
 {
     struct item
@@ -37,13 +69,15 @@ struct Item
         int JB_value = 0, ZS_value = 0;
         int quality = 0, jie = 0;
         int back_ground = 0;
+        Colors color;
 
         item() = default;
 
         // 初始化物品专用
         item(std::string name, std::string introduce, int count, int JB_value, int ZS_value, std::string type, int quality,
-             int back_ground = 0, int jie = 0)
+             int jie = 0, Colors color = {})
         {
+            this->color = color;
             this->name = std::move(name);
             this->introduce = std::move(introduce);
             this->type = type;
@@ -62,10 +96,16 @@ struct Item
                     break;
                 }
             }
+            if (quality < 7)
+            {
+                this->name = item_quality[quality - 1].second + this->name;
+                if (isShow) this->name += item_quality[quality - 1].first;
+                this->name += "\033[0m";
+            }
             // 神器处理
             if (quality == 7)
             {
-                this->back_ground = back_ground;
+                this->back_ground = color[0]->cmdColor;
                 char colour[100];
                 sprintf(colour, item_quality[6].second.c_str(), back_ground);
                 std::string color = colour;
@@ -75,11 +115,11 @@ struct Item
                 this->name += "\033[0m";
                 this->introduce = "\033[" + std::to_string(back_ground - 10) + "m" + this->introduce + "\033[0m";
             }
-            else
+            if (quality == 8)
             {
-                this->name = item_quality[quality - 1].second + this->name;
-                if (isShow) this->name += item_quality[quality - 1].first;
-                this->name += "\033[0m";
+                if (isShow) this->name += item_quality[6].first;
+                if (jie > 0) this->name += "[" + std::to_string(jie) + "阶]";
+                color.paint(this->name, this->introduce);
             }
         }
     } items[ITEM_NUM];
@@ -261,18 +301,21 @@ inline Item::item (&getInitItem())[ITEM_NUM]
         Item::item("天丛云·白王圣剑", "别名[草薙剑]，由白王圣骸制成\n"
                    "刀身呈菖蒲叶型太刀，常态隐没在云雾白光中，周身缠绕云气\n"
                    "出鞘化作银白色电光，切割轨迹留白光残影，肉眼难以捕捉轨迹\n"
-                   "一刀可斩断万物，其锋利程度天下无双", 0, -1, -1, "equipment_sword", 7, 47, 1),
+                   "一刀可斩断万物，其锋利程度天下无双", 0, -1, -1, "equipment_sword", 7, 1,
+                   {{{47}}, Colors::shenqi}),
         Item::item("昆古尼尔·命运之矛", "众神之王奥丁的配枪\n"
                    "由世界树的枝干制成，形状扭曲，如同折断的古树枝条，枪身流转着金色流光\n"
                    "长枪掷出，锁定命运，无视规则，绝对命中\n"
                    "对流星许愿吧！因为以昆古尼尔起誓的诺言必定应验\n"
-                   "[特殊]使用此武器对方将无法闪避", 0, -1, -1, "equipment_sword", 7, 102, 2),
+                   "[特殊]使用此武器对方将无法闪避", 0, -1, -1, "equipment_sword", 7, 2,
+                   {{{102}}, Colors::shenqi}),
         Item::item("七宗罪", "“凡王之血，必以剑终”\n"
                    "炼金术的巅峰神器\n"
                    "内置七柄刀剑，分别为傲慢，妒忌，暴怒，懒惰，贪婪，饕餮，色欲\n"
                    "七柄刀剑收纳于漆黑炼金刀匣，匣身镌刻古老铭文\n"
                    "七把同时出鞘，可展开炼金领域「青铜炼狱·罪与罚」\n"
-                   "龙的戾气流转于刃身，渴望用利刃终结诸王宿命", 0, -1, -1, "equipment_sword", 7, 41, 3),
+                   "龙的戾气流转于刃身，渴望用利刃终结诸王宿命", 0, -1, -1, "equipment_sword", 7, 3,
+                   {{{41}}, Colors::shenqi}),
         Item::item("魔刀千刃", "原是神锻国的秘宝\n"
                    "刀刃由上千块碎片组成,黑色刀柄半截刀身\n"
                    "刀身上的蓝色条纹,显现出恶灵的图案,闪现着淡淡的蓝色或紫色的光\n"
@@ -280,7 +323,8 @@ inline Item::item (&getInitItem())[ITEM_NUM]
                    "“只攻不防,天下无双,魔刀千刃”\n"
                    "要小心了!\n"
                    "深渊里的恶灵无时无刻不在触动\n"
-                   "他们释放的黑洞吞噬世间的一切", 0, -1, -1, "equipment_sword", 7, 105, 3),
+                   "他们释放的黑洞吞噬世间的一切", 0, -1, -1, "equipment_sword", 7, 3,
+                   {{{105}}, Colors::shenqi}),
         Item::item("深渊·诅咒之戒", "来自深渊的目光正在凝视着你...", 0, -1, -1, "equipment_accessory", 6),
         Item::item("创世神之心", "你获得了来自Minecraft创世神的认可", 0, -1, -1, "material", 6),
 
@@ -298,6 +342,10 @@ inline Item::item (&getInitItem())[ITEM_NUM]
         Item::item("体力瓶", "用于回复挖矿损失的体力", 0, 15, 0, "consumables", 3),
         Item::item("装备碎片", "通过分解装备获得", 0, -1, -1, "material", 3),
         Item::item("化神石", "可用于突破神级瓶颈", 0, -1, -1, "consumables_more", 6),
+
+        Item::item("XiaoQiのSword", "--来自开发者的赠礼--\n"
+                               "by XiaoQi", 0, -1, -1, "equipment_sword", 8, 5,
+                               {{{"#14fbff"}, {"#90f240"}, {"#14b9ff"}, {"#ff85e4"}}, Colors::Gradient}),
     };
     return init_item;
 }

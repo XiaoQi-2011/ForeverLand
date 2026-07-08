@@ -51,11 +51,6 @@ struct Data
     }
 };
 
-//use: \033color - 30 light: +8
-const int colors[] = {
-    8, 4, 2, 6, 1, 5, 3, 7
-};
-
 inline Data::data (&getInitData())[DATA_NUM]
 {
     static Data::data initData[] =
