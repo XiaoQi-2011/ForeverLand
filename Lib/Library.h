@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <thread>
+#include <utility>
 
 #include "Data.h"
 #include "Player.h"
@@ -34,6 +35,11 @@ inline std::string getFormatSystemTime(long long time)
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &local_tm);
 
     return std::string(buf);
+}
+
+inline int getExpMax(Player player) {
+    return static_cast<int>((pow(player.getData(0) / 10 + 1, 2) * 100 + 10 * player.getData(0)) * 2 * pow(
+            2, player.getData(0) / 100));
 }
 
 inline void ListUsers(const std::filesystem::path& path)
@@ -402,4 +408,64 @@ inline std::vector<std::string> split(const std::string& str, char splitChar)
     return result;
 }
 
+struct Utf8string
+{
+    std::string str;
+
+    Utf8string() = default;
+    Utf8string(std::string str) {
+        this->str = std::move(str);
+    }
+
+    int getUtf8CharLen(unsigned char c) {
+        if ((c & 0x80) == 0) return 1;
+        if ((c & 0xE0) == 0xC0) return 2;
+        if ((c & 0xF0) == 0xE0) return 3;
+        if ((c & 0xF8) == 0xF0) return 4;
+        return -1;
+    }
+
+    // 第index个字符真实起始处
+    int getRealIndex(int index) {
+        int len = 0;
+        for (int i = 0; i < index; i++) {
+            len += getUtf8CharLen(static_cast<unsigned char>(str[len]));
+        }
+        return len;
+    }
+
+    int size() {
+        int len = 0;
+        for (int i = 0; i < str.size(); i++) {
+            i += getUtf8CharLen(static_cast<unsigned char>(str[i])) - 1;
+            len ++;
+        }
+        return len;
+    }
+
+    void insert(int index, const std::string& str1) {
+        int pos = getRealIndex(index);
+        this->str.insert(pos, str1);
+    }
+
+    Utf8string& operator=(const std::string& other) {
+        this->str = other;
+        return *this;
+    }
+
+    std::string operator[](int index) {
+        if (index >= size()) return "";
+        int start = getRealIndex(index);
+        int end = getRealIndex(index + 1) - 1;
+        return this->str.substr(start, end - start + 1);
+    }
+
+    std::vector<std::string> getArray() {
+        std::vector<std::string> res;
+        for (int i = 0; i < size(); i++) {
+            res.push_back(this->operator[](i));
+        }
+        return res;
+    }
+};
 #endif //LIBRARY_H

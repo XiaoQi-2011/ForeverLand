@@ -73,7 +73,7 @@ const EData EquipmentData[]{
     EData(89, {132, 0, 0, 0, 22, 0, 0, 17, 19, 17, 55, 0, 0}),
 
     EData(90, {40, 20, 80, 80, 10, 8, 0, 5, 5, 10, 0, 0, 0}),
-    EData(89, {157, 0, 0, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0}),
+    EData(104, {157, 0, 0, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0}),
 };
 
 inline EData getEquipmentData(int itemID)

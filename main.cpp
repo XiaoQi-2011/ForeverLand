@@ -5,12 +5,6 @@
 #include "Lib/ConstDatas.h"
 #include "Lib/Player.h"
 
-inline int getExpMax(Player player)
-{
-    return static_cast<int>((pow(player.getData(0) / 10 + 1, 2) * 100 + 10 * player.getData(0)) * 2 * pow(
-        2, player.getData(0) / 100));
-}
-
 Player player;
 std::string name;
 
@@ -135,7 +129,7 @@ int main()
     {
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
-        SetConsoleTitleW(L"ForeverLand");
+        SetConsoleTitleA("ForeverLand");
 
         // 系统初始设置
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -176,7 +170,6 @@ int main()
         {
             const int exp_max = getExpMax(player);
             system("cls");
-            system("title ForeverLand");
             std::printf("欢迎来到【永恒大陆】 (按下ESC返回上级) \n");
             if (player.getData(26) > 0) std::printf("\033[1;31m[%d级神]", player.getData(26));
             std::printf("[lv.%d] %s\033[0m\n", player.getData(0), name.c_str());

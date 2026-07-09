@@ -41,5 +41,6 @@ add_executable(ForeverLand main.cpp
         Event/WorkArea.cpp
         Event/Setting.cpp
         Lib/Color.h
+        Lib/Color.cpp
 )
 

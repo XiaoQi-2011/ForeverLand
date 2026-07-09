@@ -4,7 +4,6 @@
 #define ITEM_NUM 105
 
 #include <string>
-#include <utility>
 #include <vector>
 #include "Color.h"
 
@@ -54,6 +53,9 @@ struct Colors {
                 introduce = getGradientString(colors[2], colors[3], introduce);
                 break;
             }
+            case shenqi: {
+                break;
+            }
         }
     }
 
@@ -74,7 +76,7 @@ struct Item
         item() = default;
 
         // 初始化物品专用
-        item(std::string name, std::string introduce, int count, int JB_value, int ZS_value, std::string type, int quality,
+        item(std::string name, std::string introduce, int count, int JB_value, int ZS_value, const std::string& type, int quality,
              int jie = 0, Colors color = {})
         {
             this->color = color;
@@ -119,7 +121,7 @@ struct Item
             {
                 if (isShow) this->name += item_quality[6].first;
                 if (jie > 0) this->name += "[" + std::to_string(jie) + "阶]";
-                color.paint(this->name, this->introduce);
+                if (!type.starts_with("equipment")) color.paint(this->name, this->introduce);
             }
         }
     } items[ITEM_NUM];
@@ -345,7 +347,7 @@ inline Item::item (&getInitItem())[ITEM_NUM]
 
         Item::item("XiaoQiのSword", "--来自开发者的赠礼--\n"
                                "by XiaoQi", 0, -1, -1, "equipment_sword", 8, 5,
-                               {{{"#14fbff"}, {"#90f240"}, {"#14b9ff"}, {"#ff85e4"}}, Colors::Gradient}),
+                               {{{"#14fbff"}, {"#90f240"}, {"#14fbff"}, {"#90f240"}}, Colors::Gradient}),
     };
     return init_item;
 }

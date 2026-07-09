@@ -33,7 +33,7 @@ void showPlayerData(Player& player)
         printf("\n%s: %d", getInitData()[i].name.c_str(), player.getData(i));
         if (i == 1)
         {
-            int exp_max = (player.getData(0) / 10 + 1) * (player.getData(0) / 10 + 1) * 100 + 10 * player.getData(0);
+            int exp_max = getExpMax(player);
             printf("/%d", exp_max);
         }
         if (i == 3)
