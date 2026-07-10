@@ -18,16 +18,15 @@ struct Player
     std::string path;
     std::string name, password;
     long long createTime = 0;
+    bool isFight = false;
 
     Player() = default;
 
-    Player(std::string path)
-    {
+    Player(std::string path) {
         this->path = std::move(path);
     }
 
-    enum fileType
-    {
+    enum fileType {
         SUCCESS, NO_EXISTS, DATA_ERROR
     };
 

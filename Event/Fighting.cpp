@@ -140,7 +140,7 @@ void entityAttack()
         {
             meHealth -= damage;
             meHealth = meHealth < 0 ? 0 : meHealth;
-            printf("[%s]攻击你造成\033[1;33m%d\033[0m伤害，\033[1;34m你的血量:\033[1;31m%d/%d ", name.c_str(), damage, meHealth,
+            printf("[%s\033[0m]攻击你造成\033[1;33m%d\033[0m伤害，\033[1;34m你的血量:\033[1;31m%d/%d ", name.c_str(), damage, meHealth,
                    fPlayer->getData(7));
             int healthP = meHealth * 100 / fPlayer->getData(7);
             std::cout << healthColors[healthP / 20] << healthP << "%\033[0m" << std::endl;
@@ -154,7 +154,7 @@ void entityAttack()
                 xixue = damage * fEntity->getData(12) / 100;
                 enemyHealth += xixue;
                 enemyHealth = enemyHealth > fEntity->getData(7) ? fEntity->getData(7) : enemyHealth;
-                printf("\033[1;31m[-][%s]吸取你\033[0;31m%d\033[1;31m血量，对方血量:\033[1;31m%d/%d\033[0m ", name.c_str(), xixue,
+                printf("\033[1;31m[-][%s\033[1;31m]吸取你\033[0;31m%d\033[1;31m血量，对方血量:\033[1;31m%d/%d\033[0m ", name.c_str(), xixue,
                        enemyHealth, fEntity->getData(7));
                 healthP = enemyHealth * 100 / fEntity->getData(7);
                 std::cout << healthP << "%" << std::endl;
@@ -172,18 +172,20 @@ void specialEvent()
     }
 }
 
-bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
+bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue, std::function<void()> eventLoop)
 {
     initKeys(player);
     win = 0;
     times = 0;
+    player.isFight = true;
+    real_player.isFight = true;
     escKeyPushEnable = false;
 
     fPlayer = &player;
     fEntity = &entity;
     realPlayer = &real_player;
     std::string name = fEntity->name;
-    printf("你正在与[%s]战斗...\n\n", name.c_str());
+    printf("你正在与[%s\033[0m]战斗...\n\n", name.c_str());
 
     specialEvent();
     if (!isContinue)
@@ -196,6 +198,9 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
 
     std::thread(entityAttack).detach();
     std::thread(MainLoop).detach();
+    if (eventLoop) {
+        std::thread(eventLoop).detach();
+    }
     while (true)
     {
         if (win != 0)
@@ -203,6 +208,8 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
             std::string str;
             std::cout << "输入任意内容继续..." << std::endl;
             escKeyPushEnable = true;
+            player.isFight = false;
+            real_player.isFight = false;
             std::getline(std::cin, str);
             return win == 1;
         }
@@ -214,13 +221,13 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
             int shanbi = Random(1, 100);
             if (shanbi <= entity.getData(10))
             {
-                printf("[%s]闪避了你的攻击\n", name.c_str());
+                printf("[%s\033[0m]闪避了你的攻击\n", name.c_str());
             }
             else
             {
                 enemyHealth -= damage;
                 enemyHealth = enemyHealth < 0 ? 0 : enemyHealth;
-                printf("\033[1;34m>\033[0m你攻击了[%s]造成\033[1;33m%d\033[0m伤害，对方血量:\033[1;31m%d/%d\033[0m ", name.c_str(),
+                printf("\033[1;34m>\033[0m你攻击了[%s\033[0m]造成\033[1;33m%d\033[0m伤害，对方血量:\033[1;31m%d/%d\033[0m ", name.c_str(),
                        damage, enemyHealth, entity.getData(7));
                 int healthP = enemyHealth * 100 / entity.getData(7);
                 std::cout << healthP << "%" << std::endl;
@@ -241,6 +248,8 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
                 std::string str;
                 std::cout << "输入任意内容继续..." << std::endl;
                 escKeyPushEnable = true;
+                player.isFight = false;
+                real_player.isFight = false;
                 std::getline(std::cin, str);
                 return win == 1;
             }
@@ -262,6 +271,8 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue)
         {
             win = 3;
             printf("你已退出战斗\n");
+            player.isFight = false;
+            real_player.isFight = false;
             system("pause");
             escKeyPushEnable = true;
             return false;

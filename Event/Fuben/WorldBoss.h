@@ -218,24 +218,41 @@ worldBoss:
     if (choice == -2) return;
     Player fakePlayer = player;
     WorldBoss boss = worldBosses[choice - 1];
+    std::function<void()> eventLoop;
     switch (choice - 1)
     {
-    case 1:
-        {
+        case 1: {
             fakePlayer.data[10]->value = 0;
             goto Default;
         }
-    case 6:
-        {
+        case 6: {
+            eventLoop = [&](){
+                while (true) {
+                    Sleep(10000);
+                    if (win != 0) return;
+                    printf("\n%s> \033[0;31ms?d&s1@ 你将被删除 sk?2&\033[0m\n\n", worldBosses[6].boss.name.c_str());
+                    Buff buff1(buffList[1], 100, 0);
+                    buff1.addBuff(*fPlayer);
+                    Buff buff2(buffList[3], 10, 5000);
+                    buff2.addBuff(*fPlayer);
+                    Buff buff3(buffList[5], 10, 5000);
+                    buff3.addBuff(*fPlayer);
+                    Buff buff5(buffList[9], 20, 5500);
+                    buff5.addBuff(*fPlayer);
+                    Buff buff6(buffList[11], 8, 6000);
+                    buff6.addBuff(*fPlayer);
+                    Buff buff4(buffList[7], 20, 10000, 800);
+                    buff4.addBuff(*fPlayer);
+                }
+            };
             int item_id = Random(0, ITEM_NUM - 1);
             while (init_item[item_id].type == "op")
                 item_id = Random(0, ITEM_NUM - 1);
             boss.capture = {{item_id, 1, 1, 100}};
             goto Default;
         }
-    default:
-        {
-        Default:
+        default: {
+            Default:
             // 判断刷新
             if (!boss.isFlashed)
             {
@@ -287,7 +304,7 @@ worldBoss:
             // 战斗
             lotteryCapture(boss.boss, boss.capture);
             createFightArea(fakePlayer, "\033[1;31m挑战Boss\033[0m [" + boss.boss.name + "]\033[0m");
-            bool wins = fight(fakePlayer, boss.boss, player);
+            bool wins = fight(fakePlayer, boss.boss, player, false, eventLoop);
             // 战斗结束处理
             if (boss.flashTime != 0 && wins) worldBosses[choice - 1].isFlashed = false;
             break;
