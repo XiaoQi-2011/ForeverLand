@@ -138,7 +138,7 @@ inline void initWorldBosses()
               {{103, 1, 1, 100}}
     );
     worldBosses[6] = WorldBoss("null", "ahw?a*px&ck^#j", "\033[1;30m",
-              200, 0,
+              150, 0,
               0, 0, "掉落物为随机物品",
               {{6, 100000}, {7, 100000}},
               {{82, 1, 1, 100}}
@@ -230,7 +230,7 @@ worldBoss:
                 while (true) {
                     Sleep(10000);
                     if (win != 0) return;
-                    printf("\n%s> \033[0;31ms?d&s1@ 你将被删除 sk?2&\033[0m\n\n", worldBosses[6].boss.name.c_str());
+                    printf("\n%s> \033[0;31ms?d&s1@ \033[4;31m你将被删除\033[0;31m sk?2&\033[0m\n\n", worldBosses[6].boss.name.c_str());
                     Buff buff1(buffList[1], 100, 0);
                     buff1.addBuff(*fPlayer);
                     Buff buff2(buffList[3], 10, 5000);

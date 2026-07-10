@@ -154,6 +154,7 @@ int main()
 
         // 初始化用户常量
         initKeys(player);
+        loadControls(player);
         producerInit();
         hour = player.getWorldData(1) / 60;
         minute = player.getWorldData(1) % 60;

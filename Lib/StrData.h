@@ -1,8 +1,7 @@
 #ifndef STRDATA_H
 #define STRDATA_H
 
-#define DATA_NUM 27
-#define STRDATA_NUM 3
+#define STRDATA_NUM 4
 
 #include <string>
 
@@ -48,7 +47,8 @@ inline const StrData::data (&getInitStrData())[STRDATA_NUM]
     static const StrData::data init_strData[]{
         StrData::data("杂货铺商品", "empty", "trade_zahuo"),
         StrData::data("神秘人商品", "empty", "trade_shenmi"),
-        StrData::data("按键配置", "e$r$1$2$3$4$5$6$", "key")
+        StrData::data("按键配置", "e$r$1$2$3$4$5$6$", "key"),
+        StrData::data("功能配置", "true$test$", "control"),
     };
     return init_strData;
 }

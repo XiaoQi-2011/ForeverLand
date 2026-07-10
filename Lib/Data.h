@@ -2,7 +2,6 @@
 #define DATA_H
 
 #define DATA_NUM 27
-#define STRDATA_NUM 3
 
 #include <string>
 #include <iomanip>

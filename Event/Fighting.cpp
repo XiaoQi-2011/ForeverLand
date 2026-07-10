@@ -1,4 +1,5 @@
 #include "Fighting.h"
+#include "Setting.h"
 #include "conio.h"
 
 void initKeys(Player& player)
@@ -59,6 +60,58 @@ int judgmentWin()
         return 2;
     }
     return 0;
+}
+
+// 在(x,y)写入单个字符，不移动光标
+void WriteChar(short x, short y, char c, WORD color)
+{
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    CHAR_INFO ci;
+    ci.Char.AsciiChar = c;
+    ci.Attributes = color; // 文字颜色
+
+    COORD bufSize = {1, 1};
+    COORD bufPos = {0, 0};
+    SMALL_RECT rect = {x, y, x, y};
+
+    WriteConsoleOutput(h, &ci, bufSize, bufPos, &rect);
+}
+
+void showHealthBar() {
+    while (true)
+    {
+        if (win != 0) return;
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        GetConsoleScreenBufferInfo(hConsole, &csbi);
+
+        // srWindow 是可视窗口区域
+        int width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        int height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+        int healthC = 199, emptyC = 119;
+        std::vector<int> colors;
+        int healthP = meHealth * 100 / fPlayer->getData(7);
+        std::string str1 = std::to_string(healthP) + "% ";
+        if (str1.size() < 5) str1.insert(0, 5 - str1.size(), ' ');
+        for (int i = 0; i < 5; i++) {
+            colors.push_back(healthColorsInt[healthP / 20]);
+        }
+        for (int i = 10; i >= 1; i--) {
+            if (healthP >= i * 10) {
+                colors.push_back(healthC);
+            } else {
+                colors.push_back(emptyC);
+            }
+            str1.append(" ");
+        }
+        int n = 0;
+        for (int i = width - str1.size(); i < width; i++) {
+            WriteChar(i, 0, str1[n], colors[n]);
+            n++;
+        }
+        Sleep(1);
+    }
 }
 
 void MainLoop()
@@ -200,6 +253,9 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue,
     std::thread(MainLoop).detach();
     if (eventLoop) {
         std::thread(eventLoop).detach();
+    }
+    if (getControls(0) == "true") {
+        std::thread(showHealthBar).detach();
     }
     while (true)
     {

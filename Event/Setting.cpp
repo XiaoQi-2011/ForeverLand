@@ -111,24 +111,44 @@ getGift:
     goto getGift;
 }
 
-void test(Player& player)
+void control(Player& player)
 {
-test:
+    control:
     system("cls");
-    std::cout << "输入测试码:" << std::endl;
-    std::string code;
-    std::getline(std::cin, code);
-    if (code == "back") return;
-    if (code == "test1")
-    {
-        for (auto& data : player.worldData.datas)
-        {
-            printf("%s(%s): %d\n", data.name.c_str(), data.type.c_str(), data.value);
+    printf("-功能- \n\n");
+    for (int i = 1; i <= controlsNum; i++) {
+        std::string color = "\033[0m";
+        if (controls[i - 1].type == Control::Bool) {
+            if (controls[i - 1].value == "true")
+                color = controls[i - 1].boolColors[0];
+            else if (controls[i - 1].value == "false")
+                color = controls[i - 1].boolColors[1];
         }
-        system("pause");
-        goto test;
+        printf("%d.%s: %s%s\033[0m\n", i, controls[i - 1].name.c_str(), color.c_str(), controls[i - 1].value.c_str());
     }
-    goto test;
+    printf("\n请输入序号: \n");
+    int choice = getChoice(1, controlsNum);
+    if (choice == -1) goto control;
+    if (choice == -2) return;
+
+    if (controls[choice - 1].type == Control::Bool) {
+        controls[choice - 1].value = controls[choice - 1].value == "true" ? "false" : "true";
+        printf("修改成功!\n");
+        system("pause");
+        goto control;
+    }
+    printf("请输入修改内容: \n");
+    std::string input;
+    std::cin >> input;
+    if (controls[choice - 1].input(input))
+    {
+        printf("修改成功!\n");
+        saveControls(player);
+    }  else {
+        printf("输入错误!\n");
+    }
+    system("pause");
+    goto control;
 }
 
 void about()
@@ -167,7 +187,7 @@ setting:
     std::cout << "1.修改密码" << std::endl;
     std::cout << "2.按键设置" << std::endl;
     std::cout << "3.获取礼包" << std::endl;
-    std::cout << "4.测试" << std::endl;
+    std::cout << "4.功能控制" << std::endl;
     std::cout << "5.说玩法明" << std::endl;
     std::cout << std::endl;
     int choice = getChoice(1, 5);
@@ -192,7 +212,7 @@ setting:
         }
     case 4:
         {
-            test(player);
+            control(player);
             goto setting;
         }
     case 5:
@@ -203,4 +223,24 @@ setting:
     default:
         break;
     }
+}
+
+void loadControls(Player& player) {
+    std::string str = player.getStrData(3);
+    std::vector<std::string> keys = split(str, '$');
+    for (int i = 0; i < keys.size(); i++) {
+        controls[i].value = keys[i];
+    }
+}
+
+void saveControls(Player& player) {
+    std::string str;
+    for (const Control& control : controls) {
+        str += control.value + '$';
+    }
+    player.strData[3]->value = str;
+}
+
+std::string getControls(int index) {
+    return controls[index].value;
 }
