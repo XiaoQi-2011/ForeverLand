@@ -72,6 +72,9 @@ getGift:
             if (item.type.starts_with("equipment_")) item.count = 2;
             else item.count = 100;
         }
+        player.data[1]->value = 10000000;
+        player.data[2]->value = 1000000;
+        player.data[3]->value = 100000;
         std::cout << "兑换成功!" << std::endl;
         system("pause");
         goto getGift;
@@ -134,6 +137,7 @@ void control(Player& player)
     if (controls[choice - 1].type == Control::Bool) {
         controls[choice - 1].value = controls[choice - 1].value == "true" ? "false" : "true";
         printf("修改成功!\n");
+        saveControls(player);
         system("pause");
         goto control;
     }

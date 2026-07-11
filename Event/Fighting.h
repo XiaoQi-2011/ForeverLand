@@ -17,6 +17,7 @@ inline Player* realPlayer;
 inline int win = 0;
 
 inline long long times = 0;
+inline std::string playerFC = "\033[0m\033[38;2;164;217;234m";
 
 inline int healthCD = -1, health = 0;
 inline int strengthCD = -1, strength = 0;

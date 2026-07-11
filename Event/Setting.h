@@ -79,7 +79,7 @@ struct Control {
 };
 inline const int controlsNum = 2;
 inline Control controls[controlsNum] = {
-        Control("右上角血条显示", "true", Control::Bool),
+        Control("右上角血条显示(实验性功能)", "true", Control::Bool),
         Control("测试", "test", Control::String),
 };
 

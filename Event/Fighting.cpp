@@ -77,6 +77,7 @@ void WriteChar(short x, short y, char c, WORD color)
     WriteConsoleOutput(h, &ci, bufSize, bufPos, &rect);
 }
 
+inline bool flashed = false;
 void showHealthBar() {
     while (true)
     {
@@ -89,7 +90,7 @@ void showHealthBar() {
         int width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         int height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-        int healthC = 199, emptyC = 119;
+        int healthC = 68, emptyC = 119;
         std::vector<int> colors;
         int healthP = meHealth * 100 / fPlayer->getData(7);
         std::string str1 = std::to_string(healthP) + "% ";
@@ -103,13 +104,21 @@ void showHealthBar() {
             } else {
                 colors.push_back(emptyC);
             }
-            str1.append(" ");
+            str1.append("0");
         }
         int n = 0;
         for (int i = width - str1.size(); i < width; i++) {
             WriteChar(i, 0, str1[n], colors[n]);
             n++;
         }
+        /*
+        std::string str2 = std::to_string(meHealth) + " / " + std::to_string(fPlayer->getData(7));
+        n = 0;
+        for (int i = width - str2.size(); i < width; i++) {
+            WriteChar(i, 1, str2[n], 12);
+            n ++;
+        }
+          */
         Sleep(1);
     }
 }
@@ -283,8 +292,8 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue,
             {
                 enemyHealth -= damage;
                 enemyHealth = enemyHealth < 0 ? 0 : enemyHealth;
-                printf("\033[1;34m>\033[0m你攻击了[%s\033[0m]造成\033[1;33m%d\033[0m伤害，对方血量:\033[1;31m%d/%d\033[0m ", name.c_str(),
-                       damage, enemyHealth, entity.getData(7));
+                printf("%s>你攻击了[%s%s]造成\033[1;33m%d%s伤害，对方血量:\033[1;31m%d/%d\033[0m ", playerFC.c_str(), name.c_str(), playerFC.c_str(),
+                       damage, playerFC.c_str(), enemyHealth, entity.getData(7));
                 int healthP = enemyHealth * 100 / entity.getData(7);
                 std::cout << healthP << "%" << std::endl;
                 int xixue = Random(1, 100);

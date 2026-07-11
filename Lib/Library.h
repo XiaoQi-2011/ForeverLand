@@ -37,6 +37,25 @@ inline std::string getFormatSystemTime(long long time)
     return std::string(buf);
 }
 
+inline void SetConsoleSize(int cols, int rows)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // 先设置缓冲区
+    COORD buf = { (SHORT)cols, (SHORT)rows };
+    SetConsoleScreenBufferSize(hConsole, buf);
+
+    // 设置可视窗口区域
+    SMALL_RECT windowRect;
+    windowRect.Left = 0;
+    windowRect.Top = 0;
+    windowRect.Right = (SHORT)(cols - 1);
+    windowRect.Bottom = (SHORT)(rows - 1);
+
+    SetConsoleWindowInfo(hConsole, TRUE, &windowRect);
+}
+
+
 inline int getExpMax(Player player) {
     return static_cast<int>((pow(player.getData(0) / 10 + 1, 2) * 100 + 10 * player.getData(0)) * 2 * pow(
             2, player.getData(0) / 100));
