@@ -7,6 +7,10 @@ const std::string ignore_types[]{
     "slot", "fuben"
 };
 
+const std::string order[] {
+    "basic", "shuxing"
+};
+
 const std::string onlyOnceTypes[]{
     "equipment", "consumables_more"
 };

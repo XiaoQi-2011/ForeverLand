@@ -24,7 +24,6 @@ const int mineLevels[mineNumber] = {1, 2, 3, 4, 5, 6};
 const std::string mineNames[mineNumber] = {"表层矿区", "浅层矿区", "中层矿区", "深层矿区", "远古秘境", "?神秘之地?"};
 
 inline bool canMine = true;
-inline int stamina = 100;
 inline int mineSpeed = 10;
 
 inline int tong[ITEM_NUM];

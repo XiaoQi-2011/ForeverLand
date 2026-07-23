@@ -97,6 +97,13 @@ void initWorldBosses();
 
 constexpr int bossCount = 7;
 
+const std::vector<int> basic {
+    4, 5, 6
+};
+const std::vector<int> shuxing {
+    8, 9, 10, 11, 12, 13, 14, 27
+};
+
 inline WorldBoss worldBosses[bossCount];
 
 inline void initWorldBosses()
@@ -159,12 +166,12 @@ worldBoss:
         printf("%s%s\n", boss.color.c_str(), boss.boss.introduce.c_str());
         // Boss属性
         printf("[基础] ");
-        for (int j = 4; j <= 6; j++)
+        for (int j : basic)
         {
             printf("%s:%d ", getInitData()[j].name.c_str(), boss.boss.getData(j));
         }
         printf("\n[属性] ");
-        for (int j = 8; j <= 14; j++)
+        for (int j : shuxing)
         {
             printf("%s:%d ", getInitData()[j].name.c_str(), boss.boss.getData(j));
         }

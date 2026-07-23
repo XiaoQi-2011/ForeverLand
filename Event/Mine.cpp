@@ -31,7 +31,7 @@ void Mine(Player& player, int choice)
         if (key == mineKey)
         {
             if (!canMine) continue;
-            if (stamina <= 0)
+            if (player.getData(30) <= 0)
             {
                 printf("你的体力已耗尽!\n\n");
                 canMine = false;
@@ -42,7 +42,7 @@ void Mine(Player& player, int choice)
             player.items[object]->count++;
             printf("你挖到了 %s×1 (当前拥有 %d 个)\n\n", item.c_str(), player.items[object]->count);
             canMine = false;
-            stamina--;
+            player.data[30]->value --;
         }
         if (escDown)
         {

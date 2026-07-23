@@ -48,6 +48,7 @@ void playerLoop()
             player.data[5]->value += 1;
             player.data[6]->value += 5;
             player.data[7]->value += 5;
+            player.data[31]->value += 3;
             //shuxing
             player.data[8]->value += (int)(lv * 0.6) - (int)((lv - 1) * 0.6);
             player.data[9]->value += (int)(lv * 0.4) - (int)((lv - 1) * 0.4);
@@ -55,10 +56,13 @@ void playerLoop()
             player.data[11]->value += (int)(lv * 0.7) - (int)((lv - 1) * 0.7);
             player.data[12]->value += (int)(lv * 0.4) - (int)((lv - 1) * 0.4);
             player.data[13]->value += (int)(lv * 0.4) - (int)((lv - 1) * 0.4);
+            player.data[27]->value += (int)(lv * 0.3) - (int)((lv - 1) * 0.3);
+            player.data[28]->value += 10;
+            player.data[29]->value += 10;
             std::printf("\n\033[1;32m[+]\033[0m你已升级, 当前等级 lv.%d\n", lv);
         }
-        if (player.getData(9) > 80) player.data[9]->value = 80;
-        if (player.getData(10) > 80) player.data[10]->value = 80;
+        //if (player.getData(9) > 80) player.data[9]->value = 80;
+        //if (player.getData(10) > 80) player.data[10]->value = 80;
         if (tick % 50 == 0)
         {
             player.writeFile();

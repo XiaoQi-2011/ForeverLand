@@ -29,11 +29,12 @@ inline void trainingBot(Player player)
         std::cout << "8.吸血概率%: " << bot.getData(11) << std::endl;
         std::cout << "9.吸血比率%: " << bot.getData(12) << std::endl;
         std::cout << "10.暴击比率%: " << bot.getData(13) << std::endl;
-        std::cout << "11.攻击速度: " << bot.getData(14) << std::endl;
-        std::cout << "12.开始" << std::endl;
+        std::cout << "11.命中概率%: " << bot.getData(27) << std::endl;
+        std::cout << "12.攻击速度: " << bot.getData(14) << std::endl << std::endl;
+        std::cout << "13.开始" << std::endl;
         std::cout << "\n请输入属性序号:" << std::endl;
         int choice = getChoice(1, 12);
-        if (choice == 12)
+        if (choice == 13)
         {
             bot.data[6]->value = bot.getData(7);
             createFightArea(player, "训练假人");
@@ -46,7 +47,8 @@ inline void trainingBot(Player player)
         int value = getChoice(0, 2147483647);
         if (value == -1 || value == -2) continue;
 
-        bot.data[choice + 3]->value = value;
+        if (choice == 11) bot.data[27]->value = value;
+        else bot.data[choice + 3]->value = value;
         if (choice == 3) bot.data[4]->value = value;
         if (choice == 4) bot.data[3]->value = value;
     }

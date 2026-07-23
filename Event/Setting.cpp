@@ -1,4 +1,5 @@
 #include "Setting.h"
+#include "../Lib/ConstDatas.h"
 #include "conio.h"
 
 void changePassword(Player& player)
@@ -75,6 +76,16 @@ getGift:
         player.data[1]->value = 10000000;
         player.data[2]->value = 1000000;
         player.data[3]->value = 100000;
+
+        putOnEquipment(player, 39, 17);
+        putOnEquipment(player, 40, 18);
+        putOnEquipment(player, 104, 19);
+        putOnEquipment(player, 75, 20);
+        putOnEquipment(player, 42, 21);
+        putOnEquipment(player, 76, 22);
+        putOnEquipment(player, 77, 23);
+        putOnEquipment(player, 78, 24);
+        putOnEquipment(player, 90, 25);
         std::cout << "兑换成功!" << std::endl;
         system("pause");
         goto getGift;

@@ -1,7 +1,7 @@
 #ifndef DATA_H
 #define DATA_H
 
-#define DATA_NUM 27
+#define DATA_NUM 32
 
 #include <string>
 #include <iomanip>
@@ -80,7 +80,12 @@ inline Data::data (&getInitData())[DATA_NUM]
         Data::data("饰品装备2", -1, "slot"),
         Data::data("饰品装备3", -1, "slot"),
         Data::data("饰品装备4", -1, "slot"),
-        Data::data("神级", 0, "basic")
+        Data::data("神级", 0, "basic"),
+        Data::data("命中概率%", 0, "shuxing"),
+        Data::data("魔力值", 100, "shuxing"),
+        Data::data("魔力上限", 100, "shuxing"),
+        Data::data("体力值", 100, "basic"),
+        Data::data("体力上限", 100, "basic"),
     };
 
     return initData;

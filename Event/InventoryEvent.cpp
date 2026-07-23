@@ -1,6 +1,5 @@
 #include "InventoryEvent.h"
 
-#include "Mine.h"
 #include "Trade.h"
 #include "../Lib/Item.h"
 #include "../Lib/ConstDatas.h"
@@ -13,38 +12,33 @@ void showPlayerData(Player& player)
     printf("名称: %s\n", player.name.c_str());
     printf("创建于: %s\n", getFormatSystemTime(player.createTime).c_str());
     printf("游玩天数: %d\n", player.getWorldData(2));
-    for (int i = 0; i < DATA_NUM; i++)
+    for (const std::string& k : order)
     {
-        bool flag = false;
-        for (const std::string& type : ignore_types)
-        {
-            if (getInitData()[i].type.starts_with(type))
-            {
-                flag = true;
-                break;
+        for (int i = 0; i < DATA_NUM; i++) {
+            bool flag = false;
+            if (getInitData()[i].type != k) continue;
+            for (const std::string &type: ignore_types) {
+                if (getInitData()[i].type.starts_with(type)) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) continue;
+            if (i == 7 || i == 29 || i == 31) {
+                printf("/%d", player.getData(i));
+                continue;
+            }
+            printf("\n%s: %d", getInitData()[i].name.c_str(), player.getData(i));
+            if (i == 1) {
+                int exp_max = getExpMax(player);
+                printf("/%d", exp_max);
+            }
+            if (i == 4) {
+                std::pair<int, int> damage = getRealDamage(player.data);
+                printf(" (最终伤害: %d~%d)", damage.first, damage.second);
             }
         }
-        if (flag) continue;
-        if (i == 7)
-        {
-            printf("/%d", player.getData(i));
-            continue;
-        }
-        printf("\n%s: %d", getInitData()[i].name.c_str(), player.getData(i));
-        if (i == 1)
-        {
-            int exp_max = getExpMax(player);
-            printf("/%d", exp_max);
-        }
-        if (i == 3)
-        {
-            printf("\n");
-        }
-        if (i == 4)
-        {
-            std::pair<int, int> damage = getRealDamage(player.data);
-            printf(" (最终伤害: %d~%d)", damage.first, damage.second);
-        }
+        printf("\n");
     }
     printf("\n\n");
     system("pause");
@@ -78,14 +72,22 @@ showPlayerItems:
 
     std::cout << "请输入要使用的物品序号:" << std::endl;
     std::string input;
-    int choice = getChoice(1, num, input, {"a%d%"});
+    int choice = getChoice(1, num, input, {"a%d%", "a%d%%d%"});
     if (choice == -1) goto showPlayerItems;
     if (choice == -2) return;
 
     // 卸下装备
     if (choice == -3)
     {
-        int slot_id = input[1] - '1' + 17;
+        int slot_id;
+        if (input.size() == 2) {
+            slot_id = input[1] - '1' + 17;
+        } else  {
+            slot_id = input[1] - '0';
+            slot_id *= 10;
+            slot_id += input[2] - '0';
+            slot_id += 16;
+        }
         if (slot_id < 17 || slot_id > 25) goto showPlayerItems;
         if (player.getData(slot_id) != -1)
         {
@@ -270,13 +272,13 @@ showPlayerItems:
             // 补充体力
             if (item_id == 101)
             {
-                if (stamina == 100)
+                if (player.getData(30) == player.getData(31))
                 {
                     printf("体力已满！\n");
                     system("pause");
                     goto showPlayerItems;
                 }
-                stamina = 100;
+                player.data[30]->value = 100;
                 printf("使用成功！体力已补充至100\n");
                 player.items[item_id]->count--;
                 success = true;
