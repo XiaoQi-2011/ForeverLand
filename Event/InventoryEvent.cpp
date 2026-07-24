@@ -24,7 +24,7 @@ void showPlayerData(Player& player)
                 }
             }
             if (flag) continue;
-            if (i == 7 || i == 29 || i == 31) {
+            if (i == 7 || i == 28 || i == 30) {
                 printf("/%d", player.getData(i));
                 continue;
             }
@@ -272,14 +272,17 @@ showPlayerItems:
             // 补充体力
             if (item_id == 101)
             {
-                if (player.getData(30) == player.getData(31))
+                if (player.getData(29) == player.getData(30))
                 {
                     printf("体力已满！\n");
                     system("pause");
                     goto showPlayerItems;
                 }
-                player.data[30]->value = 100;
-                printf("使用成功！体力已补充至100\n");
+                player.data[29]->value += 100;
+                if (player.getData(29) > player.getData(30)) {
+                    player.data[29]->value = player.getData(30);
+                }
+                printf("使用成功！体力已补充100\n");
                 player.items[item_id]->count--;
                 success = true;
             }
@@ -287,7 +290,7 @@ showPlayerItems:
             if (item_id == 103)
             {
                 int level = player.getData(0);
-                if (level < 99 || (level + 1) % 10 != 0)
+                if (level < 99 || (level + 1) % 10 != 0 || player.getData(1) != getExpMax(player) - 1)
                 {
                     printf("你未到达神级瓶颈! \n");
                     system("pause");

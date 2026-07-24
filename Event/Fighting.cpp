@@ -194,7 +194,7 @@ void entityAttack()
         std::string name = fEntity->name;
         int damage = getRealDamage(fEntity->data, fPlayer->data);
         int shanbi = Random(1, 100);
-        if (shanbi <= fPlayer->getData(10) - fEntity->getData(27))
+        if (shanbi <= fPlayer->getData(10))
         {
             printf("你闪避了[%s]的攻击\n", name.c_str());
         }
@@ -284,7 +284,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue,
             if (attackCD != -1) continue;
             int damage = getRealDamage(player.data, entity.data);
             int shanbi = Random(1, 100);
-            if (shanbi <= entity.getData(10) - player.getData(27))
+            if (shanbi <= entity.getData(10))
             {
                 printf("[%s\033[0m]闪避了你的攻击\n", name.c_str());
             }

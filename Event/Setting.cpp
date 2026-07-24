@@ -71,7 +71,7 @@ getGift:
         for (auto& item : player.items.items)
         {
             if (item.type.starts_with("equipment_")) item.count = 2;
-            else item.count = 100;
+            else item.count = 1000;
         }
         player.data[1]->value = 10000000;
         player.data[2]->value = 1000000;

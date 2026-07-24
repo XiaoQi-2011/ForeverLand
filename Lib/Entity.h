@@ -68,12 +68,11 @@ inline Entity createMonster(const std::string& name, int level, bool showLevel, 
     monster.data.datas[7].value = level * 10 * override;
     monster.data.datas[8].value = level * 0.4 * override;
     monster.data.datas[9].value = level * 0.2 * override;
-    monster.data.datas[10].value = level * 0.3 * override;
+    monster.data.datas[10].value = level * 0.2 * override;
     monster.data.datas[11].value = level * 0.5 * override;
     monster.data.datas[12].value = level * 0.3 * override;
     monster.data.datas[13].value = level * 0.3 * override;
     monster.data.datas[14].value = 10 + (level / 10) * 3;
-    monster.data.datas[27].value = level * 0.2 * override;
     return monster;
 }
 

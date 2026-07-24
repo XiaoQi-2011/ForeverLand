@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#define ITEM_NUM 105
+#define ITEM_NUM 126
 
 #include <string>
 #include <vector>
@@ -34,6 +34,7 @@ struct Colors {
     enum Type {
         shenqi,
         Gradient,
+        Normal
     } type;
 
     Colors() = default;
@@ -54,6 +55,11 @@ struct Colors {
                 break;
             }
             case shenqi: {
+                break;
+            }
+            case Normal: {
+                name = getColor(colors[0]) + name + "\033[0m";
+                introduce = getColor(colors[1]) + introduce + "\033[0m";
                 break;
             }
         }
@@ -348,6 +354,37 @@ inline Item::item (&getInitItem())[ITEM_NUM]
         Item::item("XiaoQiのSword", "--来自开发者的赠礼--\n"
                                "by XiaoQi", 0, -1, -1, "equipment_sword", 8, 5,
                                {{{"#14fbff"}, {"#90f240"}, {"#14fbff"}, {"#90f240"}}, Colors::Gradient}),
+        Item::item("屠龙刀", "村长家的传世神器\n"
+                                    "世世代代流传下来\n"
+                                    "只有真正的勇者才能使用\n"
+                                    "刃断苍溟，锋镇八荒\n"
+                                    "[成长型武器]", 0, -1, -1, "equipment_sword", 8, 0,
+                   {{{"#FEAF06"}, {"#DEAC3F"}}, Colors::Normal}),
+
+        Item::item("凝露草[凡阶]", "[凡阶仙草]\n淬体固本，入门炼药主料", 0, 100, 0, "immortal_herb", 2),
+        Item::item("青纹芝[凡阶]", "[凡阶仙本]\n滋养气血，治疗外伤", 0, 100, 0, "immortal_herb", 2),
+        Item::item("紫河藤[凡阶]", "[凡阶仙草]\n辅助稳固初入修为", 0, 100, 0, "immortal_herb", 2),
+        Item::item("月华草[凡阶]", "[凡阶仙草]\n吸纳夜色灵气，提升修炼效率", 0, 100, 0, "immortal_herb", 2),
+
+        Item::item("九曲灵参[灵阶]", "[灵阶仙草]\n洗伐经脉杂质", 0, 200, 0, "immortal_herb", 3),
+        Item::item("冰魄雪莲[灵阶]", "[灵阶仙草]\n极寒灵药，压制心魔、去火毒", 0, 200, 0, "immortal_herb", 3),
+        Item::item("赤炎朱果[灵阶]", "[灵阶仙草]\n火属性灵草，大幅暴涨灵力", 0, 200, 0, "immortal_herb", 3),
+        Item::item("星辰草[灵阶]", "[灵阶仙草]\n吸收星力，突破瓶颈", 0, 200, 0, "immortal_herb", 3),
+
+        Item::item("九叶玄参[玄阶]", "[玄阶仙草]\n净化魔气，祛除丹毒", 0, 300, 0, "immortal_herb", 4),
+        Item::item("幽冥鬼芝[玄阶]", "[玄阶仙草]\n阴属性灵药，魔道修士常用", 0, 300, 0, "immortal_herb", 4),
+        Item::item("血龙参[玄阶]", "[玄阶仙草]\n淬炼肉身，增强精血", 0, 300, 0, "immortal_herb", 4),
+        Item::item("阴阳同心草[玄阶]", "[玄阶仙草]\n一阴一阳成对生长，炼制合道丹药", 0, 300, 0, "immortal_herb", 4),
+
+        Item::item("万年龙涎草[地阶]", "[地阶仙草]\n龙族灵气滋养而生，助修士凝丹", 0, 400, 10, "immortal_herb", 5),
+        Item::item("涅槃灵莲[地阶]", "[地阶仙草]\n可使濒死修士重塑肉身", 0, 400, 10, "immortal_herb", 5),
+        Item::item("补天芝[地阶]", "[地阶仙草]\n使用天地灵气修补道基裂痕", 0, 400, 10, "immortal_herb", 5),
+        Item::item("七色仙兰[地阶]", "[地阶仙草]\n调和五行灵气，杜绝走火入魔", 0, 400, 10, "immortal_herb", 5),
+
+        Item::item("九转还魂草[天阶]", "[天阶仙草]\n断肢重生，吊住一缕残魂", 0, 500, 20, "immortal_herb", 6),
+        Item::item("混沌青莲[天阶]", "[天阶仙草]\n先天灵根，造化至宝", 0, 500, 20, "immortal_herb", 6),
+        Item::item("扶桑神叶[天阶]", "[天阶仙草]\n日之精华，铸就纯阳道体", 0, 500, 20, "immortal_herb", 6),
+        Item::item("太阴神芝[天阶]", "[天阶仙草]\n月华本源，修炼太阴功法必备", 0, 500, 20, "immortal_herb", 6),
     };
     return init_item;
 }
