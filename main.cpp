@@ -193,8 +193,9 @@ int main()
             std::cout << "5.合成区" << std::endl;
             std::cout << "6.副本" << std::endl;
             std::cout << "7.功能区" << std::endl;
-            std::cout << "8.设置" << std::endl;
-            int choice = getChoice(1, 8);
+            std::cout << "8.炼丹区" << std::endl;
+            std::cout << "9.设置" << std::endl;
+            int choice = getChoice(1, 9);
             if (choice == -1 || choice == -2) continue;
             switch (choice)
             {
@@ -233,7 +234,7 @@ int main()
                     workArea(player);
                     break;
                 }
-            case 8:
+            case 9:
                 {
                     setting(player);
                     break;

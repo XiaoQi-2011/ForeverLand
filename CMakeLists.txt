@@ -43,5 +43,7 @@ add_executable(ForeverLand main.cpp
         Lib/Color.h
         Lib/Color.cpp
         Lib/Buff.h
+        Event/Alchemy.cpp
+        Event/Alchemy.h
 )
 

@@ -1,7 +1,7 @@
 #ifndef DATA_H
 #define DATA_H
 
-#define DATA_NUM 31
+#define DATA_NUM 33
 
 #include <string>
 #include <iomanip>
@@ -85,6 +85,8 @@ inline Data::data (&getInitData())[DATA_NUM]
         Data::data("魔力上限", 100, "shuxing"),
         Data::data("体力值", 100, "basic"),
         Data::data("体力上限", 100, "basic"),
+        Data::data("幸运值", 0, "shuxing"),
+        Data::data("炼丹等级", 0, "basic"),
     };
 
     return initData;
