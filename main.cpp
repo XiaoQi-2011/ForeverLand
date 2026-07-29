@@ -145,6 +145,7 @@ int main()
 
         // 初始化全局常量
         initEquipmentItem();
+        initElixirItem();
         initMines();
         initProducers();
         initWorldBosses();
@@ -232,6 +233,11 @@ int main()
             case 7:
                 {
                     workArea(player);
+                    break;
+                }
+            case 8:
+                {
+                    Alchemy(player);
                     break;
                 }
             case 9:

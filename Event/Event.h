@@ -9,5 +9,6 @@
 #include "Mine.h"
 #include "Trade.h"
 #include "WorkArea.h"
+#include "Alchemy.h"
 
 #endif //FOREVERLAND_EVENT_H
