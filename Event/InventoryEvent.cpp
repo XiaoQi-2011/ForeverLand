@@ -4,6 +4,7 @@
 #include "../Lib/Item.h"
 #include "../Lib/ConstDatas.h"
 #include "Fuben/WorldBoss.h"
+#include "Alchemy.h"
 
 void showPlayerData(Player& player)
 {
@@ -264,6 +265,17 @@ showPlayerItems:
             printf("使用成功！\n");
             player.items[item_id]->count--;
             success = true;
+        }
+
+        // 丹药
+        if (item_type.starts_with("elixir")) {
+            if (useElixir(player, item_id)) {
+                printf("使用成功！\n");
+                std::string str = init_item[item_id].introduce;
+                std::string addition = str.substr(str.find("[效果]") + 9);
+                printf("%s\n", addition.c_str());
+                success = true;
+            }
         }
 
         // 消耗品

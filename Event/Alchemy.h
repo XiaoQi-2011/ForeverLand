@@ -7,13 +7,13 @@
 #include "../Lib/Entity.h"
 #include "../Lib/Buff.h"
 
-const int alchemy_num = 5;
+const int alchemy_num = 5, elixir_num = 18;
 
 const int playerLevels[alchemy_num] {
     0, 20, 40, 60, 80
 };
 const int alchemyLevels[alchemy_num] {
-    0, 100, 200, 300, 500
+    0, 50, 150, 300, 500
 };
 const std::string alchemyNames[alchemy_num] {
     "\033[0;37m凡阶", "\033[1;36m灵阶", "\033[1;35m玄阶", "\033[0;33m地阶", "\033[0;31m\033[5;31m天阶"
@@ -38,7 +38,7 @@ struct AData
         this->values = std::move(values);
     }
 };
-const AData alchemyData[] {
+const AData alchemyData[elixir_num] {
     AData(128, {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
     AData(129, {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
     AData(130, {9, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
@@ -73,7 +73,7 @@ struct AMaterial
         this->values = std::move(values);
     }
 };
-const AMaterial alchemyMaterials[] {
+const AMaterial alchemyMaterials[elixir_num] {
     AMaterial(128, {{107, 4}, {108, 3}}),
     AMaterial(129, {{111, 4}, {113, 4}}),
     AMaterial(130, {{115, 5}, {117, 5}}),

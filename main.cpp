@@ -61,7 +61,7 @@ void playerLoop()
             std::printf("\n\033[1;32m[+]\033[0m你已升级, 当前等级 lv.%d\n", lv);
         }
         if (player.getData(9) > 80) player.data[9]->value = 80;
-        if (player.getData(10) > 80) player.data[10]->value = 80;
+        if (player.getData(10) > 60) player.data[10]->value = 60;
         if (tick % 50 == 0)
         {
             player.writeFile();
@@ -193,60 +193,65 @@ int main()
             std::cout << "4.交易区" << std::endl;
             std::cout << "5.合成区" << std::endl;
             std::cout << "6.副本" << std::endl;
-            std::cout << "7.功能区" << std::endl;
+            std::cout << "7.秘境" << std::endl;
             std::cout << "8.炼丹区" << std::endl;
-            std::cout << "9.设置" << std::endl;
-            int choice = getChoice(1, 9);
+            std::cout << "9.功能区" << std::endl;
+            std::cout << "10.设置" << std::endl;
+            int choice = getChoice(1, 10);
             if (choice == -1 || choice == -2) continue;
             switch (choice)
             {
-            case 1:
-                {
+                case 1: {
                     showPlayerData(player);
                     break;
                 }
-            case 2:
-                {
+
+                case 2: {
                     showPlayerItems(player);
                     break;
                 }
-            case 3:
-                {
+
+                case 3: {
                     MineMenu(player);
                     break;
                 }
-            case 4:
-                {
+
+                case 4: {
                     TradeMenu(player);
                     break;
                 }
-            case 5:
-                {
+
+                case 5: {
                     Produce(player);
                     break;
                 }
-            case 6:
-                {
+
+                case 6: {
                     fuben(player);
                     break;
                 }
-            case 7:
-                {
-                    workArea(player);
+
+                case 7: {
+                    SecretRealmMenu(player);
                     break;
                 }
-            case 8:
-                {
+
+                case 8: {
                     Alchemy(player);
                     break;
                 }
-            case 9:
-                {
+
+                case 9: {
+                    workArea(player);
+                    break;
+                }
+
+                case 10: {
                     setting(player);
                     break;
                 }
-            default:
-                {
+
+                default: {
                     std::cout << "此功能暂未开发" << std::endl;
                     getchar();
                     break;

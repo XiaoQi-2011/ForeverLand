@@ -10,5 +10,6 @@
 #include "Trade.h"
 #include "WorkArea.h"
 #include "Alchemy.h"
+#include "SecretRealm.h"
 
 #endif //FOREVERLAND_EVENT_H

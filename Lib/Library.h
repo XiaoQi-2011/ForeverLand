@@ -37,6 +37,20 @@ inline std::string getFormatSystemTime(long long time)
     return std::string(buf);
 }
 
+// 设置控制台光标显示状态
+// visible = true 显示光标 | false 隐藏光标
+inline void SetConsoleCursorVisible(bool visible)
+{
+    CONSOLE_CURSOR_INFO cursorInfo{};
+    cursorInfo.dwSize = 1;       // 光标大小 1~100，默认1
+    cursorInfo.bVisible = visible;
+
+    // 获取标准输出控制台句柄
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorInfo(hConsole, &cursorInfo);
+}
+
+
 inline void SetConsoleSize(int cols, int rows)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

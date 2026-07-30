@@ -45,5 +45,7 @@ add_executable(ForeverLand main.cpp
         Lib/Buff.h
         Event/Alchemy.cpp
         Event/Alchemy.h
+        Event/SecretRealm.cpp
+        Event/SecretRealm.h
 )
 

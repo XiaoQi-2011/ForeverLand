@@ -30,7 +30,7 @@ inline int tong[ITEM_NUM];
 inline char mineKey = 'e';
 
 // 函数声明
-void initMines();
+
 void MineLoop();
 void Mine(Player& player, int choice);
 void MineMenu(Player& player);
