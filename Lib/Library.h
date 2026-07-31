@@ -348,11 +348,7 @@ struct Lottery
         }
     };
 
-    enum Return
-    {
-        NONE
-    };
-
+    T NONE;
     std::vector<Object> objects;
     int totalPercent = 100;
 
@@ -375,8 +371,9 @@ struct Lottery
 
     Lottery() = default;
 
-    explicit Lottery(std::vector<Object> objects, int totalPercent = 100)
+    explicit Lottery(std::vector<Object> objects, int totalPercent = 100, T NONE = T())
     {
+        this->NONE = NONE;
         this->objects = objects;
         this->totalPercent = totalPercent;
     }

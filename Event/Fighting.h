@@ -58,7 +58,7 @@ void MainLoop();
 void entityAttack();
 void specialEvent();
 
-bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue = false, std::function<void()> eventLoop = nullptr);
+bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue = false, const std::function<void()>& eventLoop = nullptr);
 void createFightArea(Player& player, const std::string& str);
 
 #endif //FOREVERLAND_FIGHTING_H

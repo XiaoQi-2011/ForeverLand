@@ -234,7 +234,7 @@ void specialEvent()
     }
 }
 
-bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue, std::function<void()> eventLoop)
+bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue, const std::function<void()>& eventLoop)
 {
     initKeys(player);
     win = 0;

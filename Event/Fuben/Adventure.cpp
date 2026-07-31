@@ -22,7 +22,7 @@ adventure:
         std::cout << std::endl;
     }
     std::cout << "请输入序号:" << std::endl;
-    int choice = getChoice(1, 8);
+    int choice = getChoice(1, adventureMsts.size() + 1);
     if (choice == -1) goto adventure;
     if (choice == -2) return;
     int n = 0;

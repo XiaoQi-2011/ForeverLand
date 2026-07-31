@@ -145,6 +145,7 @@ int main()
 
         // 初始化全局常量
         initEquipmentItem();
+        initSecretRealm();
         initElixirItem();
         initMines();
         initProducers();

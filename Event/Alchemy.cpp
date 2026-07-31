@@ -67,7 +67,8 @@ void Alchemy(Player& player) {
         if (player.items[am.itemID]->quality == choice) {
             itemIDs.push_back(i);
             bool m_enough = true;
-            printf("%zu.炼制 %s\n", itemIDs.size(), player.items[am.itemID]->name.c_str());
+            printf("%zu.炼制 %s\033[0m\n", itemIDs.size(), player.items[am.itemID]->name.c_str());
+            printf("%s\n", player.items[am.itemID]->introduce.c_str());
             printf("\033[0;32m>所需材料：\033[0m\n");
             for (const std::pair<int, int>& p : am.values) {
                 std::string color = player.getItem(p.first) >= p.second
@@ -105,7 +106,7 @@ void Alchemy(Player& player) {
     Lottery<int> lottery({{1, successRate}}, 1000);
     // 动画
     SetConsoleCursorVisible(false);
-    printf("%s炼制中...\033[0m\n", getColor({"#FFF024"}).c_str());
+    printf("%s炼制中...\033[0m\n", getColor({"#FEF686"}).c_str());
     for (int i = 1; i <= 10; i++) {
         printf("进度：");
         for (int j = 1; j <= i; j++) {
