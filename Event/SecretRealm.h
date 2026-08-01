@@ -10,8 +10,7 @@
 #include "../Lib/Entity.h"
 
 const int srNumber = 5;
-inline char secretRealmKey = 'e';
-inline bool sr_canGo = true, sr_isOn = false;
+inline bool sr_canGo = true;
 
 const int srMinLevel [srNumber]{
     0, 20, 40, 60, 80
@@ -55,7 +54,7 @@ inline void initSecretRealm()
     srEntity[7] = Entity(createMonster("混沌神念", 90, false));
 }
 
-void srLoop();
+void sr_Loop();
 
 void SecretRealm(Player& player, int choice);
 

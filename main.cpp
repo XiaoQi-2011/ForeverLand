@@ -170,6 +170,8 @@ int main()
         std::thread(playerLoop).detach();
         std::thread(worldLoop).detach();
         std::thread(MineLoop).detach();
+        std::thread(sr_Loop).detach();
+        std::thread(equipmentLoop, std::ref(player)).detach();
 
         // 主循环
         while (true)

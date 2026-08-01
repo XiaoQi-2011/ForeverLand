@@ -3,17 +3,17 @@
 #include "Fighting.h"
 
 void sr_Loop() {
-    while (sr_isOn)
+    while (true)
     {
         if (!sr_canGo) {
             Sleep(800);
             sr_canGo = true;
         }
+        Sleep(1);
     }
 }
 
 void SecretRealm(Player& player, int choice) {
-    secretRealmKey = player.getStrData(2)[0];
     escKeyPushEnable = false;
 
     system("cls");
@@ -21,23 +21,17 @@ void SecretRealm(Player& player, int choice) {
     printf(">开始探索，按esc键返回\n\n");
     Lottery<int> secretRealm = secretRealms[choice];
     Player srPlayer = player;
-    sr_isOn = true;
-    std::thread(sr_Loop).detach();
     while (true)
     {
-        if (escDown)
-        {
-            Sleep(120);
-            escKeyPushEnable = true;
-            sr_isOn = false;
-            return;
-        }
+        //_getch();
+        Sleep(1);
         if (!sr_canGo) continue;
-        if (player.getData(30) <= 0)
+        if (player.getData(29) <= 0)
         {
-            printf("你的体力已耗尽!\n\n");
-            Sleep(500);
-            continue;
+            printf("你的体力已耗尽!\n");
+            escKeyPushEnable = true;
+            system("pause");
+            return;
         }
         int object = secretRealm.lottery();
         if (object == secretRealm.NONE) object = 106;
@@ -48,18 +42,23 @@ void SecretRealm(Player& player, int choice) {
         }
         if (object < 0) {
             object = -object;
-            if (1 <= object && object <= 20) {
+            if (1 <= object && object <= 100) {
                 Entity entity = srEntity[object];
                 printf("你遇到了 %s 即将开始战斗\n\n", entity.name.c_str());
                 bool isWin = fight(srPlayer, entity, player, false);
                 if (!isWin) {
-                    sr_isOn = false;
                     return;
                 }
             }
         }
-        player.data[30]->value --;
-        Sleep(800);
+        if (escDown)
+        {
+            Sleep(120);
+            escKeyPushEnable = true;
+            return;
+        }
+        player.data[29]->value --;
+        sr_canGo = false;
     }
 }
 
@@ -67,7 +66,6 @@ void SecretRealmMenu(Player& player){
     SecretRealmMenu:
     system("cls");
     printf("--秘境--\n\n");
-    sr_isOn = false;
     for (int i = 0; i < srNumber; i++)
     {
         if (player.getData(0) < srMinLevel[i])

@@ -74,6 +74,7 @@ color hexToRgb(const std::string& hexStr) {
 }
 
 std::string getGradientString(color start, color end, const std::string& str) {
+    if (str.empty()) return "";
     std::string result;
     std::vector<std::string> strArray = split(str, '\n');
     int len = 0;

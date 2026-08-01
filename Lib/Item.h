@@ -359,7 +359,7 @@ inline Item::item (&getInitItem())[ITEM_NUM]
                                     "只有真正的勇者才能使用\n"
                                     "刃断苍溟，锋镇八荒\n"
                                     "[成长型武器]", 0, -1, -1, "equipment_sword", 8, 0,
-                   {{{"#FEAF06"}, {"#DEAC3F"}}, Colors::Normal}),
+                    {{{"#FEAF06"}, {"#FEAF07"}, {"#DEAC3F"}, {"#FEAF06"}}, Colors::Gradient}),
 
         Item::item("杂草", "没有任何用处的杂草", 0, 1, 0, "immortal_herb", 1),
 

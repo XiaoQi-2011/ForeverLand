@@ -28,7 +28,7 @@ struct EData
     }
 };
 
-const EData EquipmentData[]{
+inline EData EquipmentData[]{
     EData(9, {7, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0}),
     EData(10, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 0, 0}),
     EData(11, {0, 5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
@@ -81,11 +81,7 @@ const EData EquipmentData[]{
 
     EData(90, {40, 20, 80, 10, 8, 0, 5, 5, 10, 0, 0, 0, 0, 0}),
     EData(104, {157, 0, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0, 0, 0}),
-    EData(105, {12, 0, 0, 1, 0, 0, 1, 1, 2, 10, 0, 0, 0, 0}),
-};
-
-const EData AlchemyData[] {
-        EData(9, {7, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0}),
+    EData(105, {12, 0, 0, 1, 0, 0, 1, 1, 2, 5, 0, 0, 0, 0}),
 };
 
 inline EData getEquipmentData(int itemID)
@@ -104,47 +100,75 @@ constexpr int basicLocs[]{
     4, 5, 6, 14, 15, 16
 };
 
+inline std::string getDataString(int itemID)
+{
+    bool Etong[DATA_NUM];
+    memset(Etong, false, sizeof(Etong));
+    std::stringstream ss;
+    std::vector<int> values = getEquipmentData(itemID).values;
+    Etong[7] = true;
+
+    if (!init_item[itemID].introduce.empty()) ss << "\n";
+    ss << "[基础] ";
+    for (const int i : basicLocs)
+    {
+        if (values[findValue(i)] != 0) {
+            ss << getInitData()[i].name << "+" << values[findValue(i)] << " ";
+            Etong[i] = true;
+        }
+    }
+    ss << "\n[属性] ";
+    for (int i = 0; i < values.size(); i++)
+    {
+        if (values[i] != 0 && !Etong[valueLoc[i]]) {
+            ss << getInitData()[valueLoc[i]].name << "+" << values[i] << " ";
+        }
+    }
+
+    return ss.str();
+}
+
+inline void equipmentLoop(Player& player) {
+    EData original_Tulong = getEquipmentData(105);
+    int jie = 0;
+    while (true)
+    {
+        if (jie != player.getData(0) / 10 + 1) {
+            // id:105 成长武器
+            jie = player.getData(0) / 10 + 1;
+            jie = jie > 11 ? 11 : jie;
+            EData &data = EquipmentData[48];
+            for (int i = 0; i < data.values.size(); i++) {
+                data.values[i] = original_Tulong.values[i] * jie;
+            }
+            std::string introduce = player.items[105]->introduce;
+            int count = 0;
+            for (int i = introduce.size() - 1; i >= 0; i--) {
+                if (introduce[i] == '\n') count++;
+                if (count == 2) {
+                    std::string addition = getDataString(105);
+                    std::string empty;
+                    init_item[105].color.paint(empty, addition);
+                    introduce.replace(i, introduce.size() - i, "\n" + addition);
+                    init_item[105].introduce = introduce;
+                    player.items[105]->introduce = introduce;
+                    break;
+                }
+            }
+        }
+        Sleep(100);
+    }
+}
+
 inline void initEquipmentItem()
 {
-    bool Etong[DATA_NUM] = {false};
     for (const EData& data : EquipmentData)
     {
         const int id = data.itemID;
-        std::vector<int> values = data.values;
-        std::stringstream ss;
-        memset(Etong, false, sizeof(Etong));
-        Etong[7] = true;
-        bool flag = false;
-        for (const int i : basicLocs)
-        {
-            if (values[findValue(i)] != 0)
-            {
-                if (!flag)
-                {
-                    if (!init_item[id].introduce.empty()) ss << "\n";
-                    ss << "[基础] ";
-                    flag = true;
-                }
-                ss << getInitData()[i].name << "+" << values[findValue(i)] << " ";
-                Etong[i] = true;
-            }
-        }
-        flag = false;
-        for (int i = 0; i < values.size(); i++)
-        {
-            if (values[i] != 0 && !Etong[valueLoc[i]])
-            {
-                if (!flag)
-                {
-                    ss << "\n[属性] ";
-                    flag = true;
-                }
-                ss << getInitData()[valueLoc[i]].name << "+" << values[i] << " ";
-            }
-        }
+        std::string str = getDataString(id);
         if (init_item[id].quality < 7)
         {
-            init_item[id].introduce += ss.str();
+            init_item[id].introduce += str;
         }
         if (init_item[id].quality == 7)
         {
@@ -152,11 +176,11 @@ inline void initEquipmentItem()
                              ? init_item[id].back_ground + 50
                              : init_item[id].back_ground - 70;
             std::string color = "\033[" + std::to_string(colour) + "m";
-            init_item[id].introduce += color + ss.str() + "\033[0m";
+            init_item[id].introduce += color + str + "\033[0m";
         }
         if (init_item[id].quality == 8)
         {
-            init_item[id].introduce += ss.str();
+            init_item[id].introduce += str;
             init_item[id].color.paint(init_item[id].name, init_item[id].introduce);
         }
     }

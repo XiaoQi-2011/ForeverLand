@@ -8,8 +8,8 @@ void initElixirItem() {
         std::vector<std::pair<int, int>> values = am.values;
         int jb_value = 0, zs_value = 0;
         for (const std::pair<int, int>& p : values) {
-            jb_value = init_item[id].JB_value * p.second;
-            zs_value = init_item[id].ZS_value * p.second;
+            jb_value += init_item[p.first].JB_value * p.second;
+            zs_value += init_item[p.first].ZS_value * p.second;
         }
         init_item[id].JB_value = jb_value;
         init_item[id].ZS_value = zs_value;
