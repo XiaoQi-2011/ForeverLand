@@ -20,14 +20,29 @@ void Mine(Player& player, int choice)
     mineKey = player.getStrData(2)[0];
     mineSpeed = player.getData(15);
     escKeyPushEnable = false;
+    bool autoAFK = player.getStrData(4) == "true";
+    int key = (int)mineKey;
 
     system("cls");
     printf("--%s--\n", mineNames[choice].c_str());
     printf(">按%c键挖掘，按esc键返回\n\n", mineKey);
+    if (autoAFK) {
+        printf("\033[1;34m自动挖矿已开启\033[0m\n");
+    }
     Lottery<int> mine = mines[choice];
     while (true)
     {
-        int key = _getch();
+        if (autoAFK) {
+            Sleep(10);
+        } else {
+            key = _getch();
+        }
+        if (escDown)
+        {
+            Sleep(120);
+            escKeyPushEnable = true;
+            return;
+        }
         if (key == mineKey)
         {
             if (!canMine) continue;
@@ -43,12 +58,6 @@ void Mine(Player& player, int choice)
             printf("你挖到了 %s×1 (当前拥有 %d 个)\n\n", item.c_str(), player.items[object]->count);
             canMine = false;
             player.data[30]->value --;
-        }
-        if (escDown)
-        {
-            Sleep(120);
-            escKeyPushEnable = true;
-            return;
         }
     }
 }

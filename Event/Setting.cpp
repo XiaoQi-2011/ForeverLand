@@ -90,6 +90,14 @@ getGift:
         system("pause");
         goto getGift;
     }
+    // /getAutoAFK
+    if (code == ">#>=") {
+        bool autoAFK = player.strData[4]->value == "true";
+        player.strData[4]->value = autoAFK ? "false" : "true";
+        std::cout << "自动AFK已" << (!autoAFK ? "开启" : "关闭") << std::endl;
+        system("pause");
+        goto getGift;
+    }
     // /setitem
     if (code == "1#77")
     {

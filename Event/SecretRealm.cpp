@@ -24,7 +24,13 @@ void SecretRealm(Player& player, int choice) {
     while (true)
     {
         //_getch();
-        Sleep(1);
+        Sleep(5);
+        if (escDown)
+        {
+            Sleep(120);
+            escKeyPushEnable = true;
+            return;
+        }
         if (!sr_canGo) continue;
         if (player.getData(29) <= 0)
         {
@@ -51,12 +57,7 @@ void SecretRealm(Player& player, int choice) {
                 }
             }
         }
-        if (escDown)
-        {
-            Sleep(120);
-            escKeyPushEnable = true;
-            return;
-        }
+
         player.data[29]->value --;
         sr_canGo = false;
     }

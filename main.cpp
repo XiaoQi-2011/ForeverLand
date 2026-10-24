@@ -130,9 +130,9 @@ int main()
 {
     try
     {
+        SetConsoleTitleA("ForeverLand");
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
-        SetConsoleTitleA("ForeverLand");
 
         // 系统初始设置
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
