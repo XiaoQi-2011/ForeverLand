@@ -37,6 +37,7 @@ inline EData EquipmentData[]{
     EData(14, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 2, 0, 0}),
     EData(15, {0, 7, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
     EData(16, {0, 13, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
+    EData(17, {16, 0, 0, 1, 0, 0, 0, 0, 2, 15, 0, 0, 0, 0}),
     EData(18, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 2, 0, 0}),
     EData(19, {0, 10, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}),
     EData(20, {0, 17, 31, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}),
@@ -80,7 +81,7 @@ inline EData EquipmentData[]{
     EData(89, {132, 0, 0, 22, 0, 0, 17, 19, 17, 55, 0, 0, 0, 0}),
 
     EData(90, {40, 20, 80, 10, 8, 0, 5, 5, 10, 0, 0, 0, 0, 0}),
-    EData(104, {157, 0, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0, 0, 0}),
+    EData(104, {157, 10, 0, 31, 0, 0, 23, 28, 20, 60, 0, 0, 0, 0}),
     EData(105, {12, 0, 0, 1, 0, 0, 1, 1, 2, 5, 0, 0, 0, 0}),
 };
 
@@ -104,60 +105,33 @@ inline std::string getDataString(int itemID)
 {
     bool Etong[DATA_NUM];
     memset(Etong, false, sizeof(Etong));
-    std::stringstream ss;
+    std::stringstream ss, sbuf;
     std::vector<int> values = getEquipmentData(itemID).values;
     Etong[7] = true;
 
     if (!init_item[itemID].introduce.empty()) ss << "\n";
-    ss << "[基础] ";
     for (const int i : basicLocs)
     {
         if (values[findValue(i)] != 0) {
-            ss << getInitData()[i].name << "+" << values[findValue(i)] << " ";
+            sbuf << getInitData()[i].name << "+" << values[findValue(i)] << " ";
             Etong[i] = true;
         }
     }
-    ss << "\n[属性] ";
+    if (!sbuf.str().empty()) {
+        ss << "[基础] " << sbuf.str();
+    }
+    sbuf.str("");
     for (int i = 0; i < values.size(); i++)
     {
         if (values[i] != 0 && !Etong[valueLoc[i]]) {
-            ss << getInitData()[valueLoc[i]].name << "+" << values[i] << " ";
+            sbuf << getInitData()[valueLoc[i]].name << "+" << values[i] << " ";
         }
+    }
+    if (!sbuf.str().empty()) {
+        ss << "\n[属性] " << sbuf.str();
     }
 
     return ss.str();
-}
-
-inline void equipmentLoop(Player& player) {
-    EData original_Tulong = getEquipmentData(105);
-    int jie = 0;
-    while (true)
-    {
-        if (jie != player.getData(0) / 10 + 1) {
-            // id:105 成长武器
-            jie = player.getData(0) / 10 + 1;
-            jie = jie > 11 ? 11 : jie;
-            EData &data = EquipmentData[48];
-            for (int i = 0; i < data.values.size(); i++) {
-                data.values[i] = original_Tulong.values[i] * jie;
-            }
-            std::string introduce = player.items[105]->introduce;
-            int count = 0;
-            for (int i = introduce.size() - 1; i >= 0; i--) {
-                if (introduce[i] == '\n') count++;
-                if (count == 2) {
-                    std::string addition = getDataString(105);
-                    std::string empty;
-                    init_item[105].color.paint(empty, addition);
-                    introduce.replace(i, introduce.size() - i, "\n" + addition);
-                    init_item[105].introduce = introduce;
-                    player.items[105]->introduce = introduce;
-                    break;
-                }
-            }
-        }
-        Sleep(100);
-    }
 }
 
 inline void initEquipmentItem()
@@ -218,5 +192,39 @@ inline void putOnEquipment(Player& player, int item_id, int slot_id)
     player.data[slot_id]->value = item_id;
 }
 
+inline void equipmentLoop(Player& player) {
+    EData original_Tulong = getEquipmentData(105);
+    int jie = 0;
+    while (true)
+    {
+        if (jie != player.getData(0) / 10 + 1) {
+            // id:105 成长武器
+            bool hasWeapon = player.getData(19) == 105;
+            if (hasWeapon) takeOffEquipment(player, 19);
+            jie = player.getData(0) / 10 + 1;
+            jie = jie > 11 ? 11 : jie;
+            EData &data = EquipmentData[49];
+            for (int i = 0; i < data.values.size(); i++) {
+                data.values[i] = original_Tulong.values[i] * jie;
+            }
+            std::string introduce = player.items[105]->introduce;
+            int count = 0;
+            for (int i = introduce.size() - 1; i >= 0; i--) {
+                if (introduce[i] == '\n') count++;
+                if (count == 2) {
+                    std::string addition = getDataString(105);
+                    std::string empty;
+                    init_item[105].color.paint(empty, addition);
+                    introduce.replace(i, introduce.size() - i, "\n" + addition);
+                    init_item[105].introduce = introduce;
+                    player.items[105]->introduce = introduce;
+                    break;
+                }
+            }
+            if (hasWeapon) putOnEquipment(player, 105, 19);
+        }
+        Sleep(100);
+    }
+}
 
 #endif //CONSTDATAS_H

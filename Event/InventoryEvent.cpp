@@ -318,7 +318,7 @@ showPlayerItems:
                 printf("使用成功！\n");
                 player.items[item_id]->count -= ping;
                 player.data[26]->value++;
-                player.data[1]->value += 100;
+                player.data[1]->value += 1;
                 success = true;
             }
         }
