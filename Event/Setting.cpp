@@ -153,6 +153,13 @@ void control(Player& player)
     if (choice == -1) goto control;
     if (choice == -2) return;
 
+    if (player.getStrData(4) == "false") {
+        if (choice == 2 || choice == 3) {
+            printf("未解锁自动挂机功能\n");
+            system("pause");
+            goto control;
+        }
+    }
     if (controls[choice - 1].type == Control::Bool) {
         controls[choice - 1].value = controls[choice - 1].value == "true" ? "false" : "true";
         printf("修改成功!\n");

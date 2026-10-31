@@ -1,5 +1,6 @@
 #include "Mine.h"
 #include "conio.h"
+#include "Setting.h"
 
 void MineLoop()
 {
@@ -20,7 +21,7 @@ void Mine(Player& player, int choice)
     mineKey = player.getStrData(2)[0];
     mineSpeed = player.getData(15);
     escKeyPushEnable = false;
-    bool autoAFK = player.getStrData(4) == "true";
+    bool autoAFK = getControls(1) == "true";
     int key = (int)mineKey;
 
     system("cls");

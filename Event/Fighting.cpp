@@ -227,6 +227,9 @@ void entityAttack()
 
 void specialEvent()
 {
+    if (getControls(2) == "true") {
+        printf("\033[1;34m自动攻击已开启\033[0m\n");
+    }
     if (fPlayer->getData(19) == 87)
     {
         fEntity->data[10]->value = 0;
@@ -266,6 +269,7 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue,
     if (getControls(0) == "true") {
         std::thread(showHealthBar).detach();
     }
+    int key = (int)attackKey;
     while (true)
     {
         if (win != 0)
@@ -278,8 +282,13 @@ bool fight(Player& player, Entity& entity, Player& real_player, bool isContinue,
             std::getline(std::cin, str);
             return win == 1;
         }
-        int key = _getch();
-        if (key == attackKey)
+        bool autoAttack = getControls(2) == "true";
+        if (autoAttack) {
+            Sleep(10);
+        } else {
+            key = _getch();
+        }
+        if (key == attackKey || autoAttack)
         {
             if (attackCD != -1) continue;
             int damage = getRealDamage(player.data, entity.data);

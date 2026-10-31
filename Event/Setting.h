@@ -77,10 +77,11 @@ struct Control {
         }
     }
 };
-inline const int controlsNum = 2;
+inline const int controlsNum = 3;
 inline Control controls[controlsNum] = {
         Control("右上角血条显示(实验性功能)", "false", Control::Bool),
-        Control("测试", "test", Control::String),
+        Control("启用自动挖矿", "false", Control::Bool),
+        Control("启用自动战斗", "false", Control::Bool),
 };
 
 // 函数声明
