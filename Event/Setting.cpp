@@ -128,6 +128,21 @@ getGift:
         player.data[id]->value = count;
         goto getGift;
     }
+    // /setworld
+    if (code == "7#*=")
+    {
+        std::cout << "请输入数据ID和数量:" << std::endl;
+        int id, count;
+        std::cin >> id >> count;
+        if (id < 0 || id > WORLDDATA_NUM)
+        {
+            std::cout << "无效的数据ID!" << std::endl;
+            system("pause");
+            goto getGift;
+        }
+        player.worldData[id]->value = count;
+        goto getGift;
+    }
     std::cout << "无效的兑换码!" << std::endl;
     system("pause");
     goto getGift;

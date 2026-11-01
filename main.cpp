@@ -178,13 +178,13 @@ int main()
         {
             const int exp_max = getExpMax(player);
             system("cls");
-            std::printf("欢迎来到【永恒大陆】 (按下ESC返回上级) \n");
-            if (player.getData(26) > 0) std::printf("\033[1;31m[%d级神]", player.getData(26));
-            std::printf("[lv.%d] %s\033[0m\n", player.getData(0), name.c_str());
-            std::printf("[经验值] %d/%d\n", player.getData(1), exp_max);
-            std::printf("[灵力值] %d/%d\n", player.getData(27), player.getData(28));
-            std::printf("[金币] %d  [钻石] %d\n", player.getData(2), player.getData(3));
-            std::printf("[攻击力] %d  [防御力] %d [生命值] %d/%d\n", player.getData(4), player.getData(5), player.getData(6),
+            std::printf("欢迎来到【永恒大陆】 (按下ESC返回上级)\n");
+            if (player.getData(26) > 0) std::printf("\033[1;31m[%d级神]\033[0m", player.getData(26));
+            std::printf("\033[1;33m[lv.%d] %s\n", player.getData(0), name.c_str());
+            std::printf("\033[1;32m[经验值] %d/%d\n", player.getData(1), exp_max);
+            std::printf("\033[1;36m[灵力值] %d/%d\n", player.getData(27), player.getData(28));
+            std::printf("\033[0;33m[金币] %d  \033[1;34m[钻石] %d\n", player.getData(2), player.getData(3));
+            std::printf("\033[0m[攻击力] %d  [防御力] %d [生命值] %d/%d\n", player.getData(4), player.getData(5), player.getData(6),
                    player.getData(7));
             std::printf("[时间] 第%d天 %d:%02d (%s) \n", player.getWorldData(2) + 1, hour, minute, dayPeriods[dayPeriod].c_str());
             std::printf("[世界] %s [%s]\n", worldState.first.c_str(), difficulties[difficulty].c_str());

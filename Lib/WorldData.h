@@ -47,7 +47,7 @@ inline const WorldData::data (&getInitWorldData())[4]
 {
     static const WorldData::data init_worldData[]{
         WorldData::data("无尽之塔层数", 1, "fuben_infiniteTower"),
-        WorldData::data("游玩时长/s", 420, "time_second"),
+        WorldData::data("游玩时长/s", 0, "time_second"),
         WorldData::data("游玩天数", 0, "time_day"),
         WorldData::data("游戏难度", 0, "difficulty"),
     };

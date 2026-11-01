@@ -1,7 +1,6 @@
 #include "InventoryEvent.h"
 
 #include "Trade.h"
-#include "../Lib/Item.h"
 #include "../Lib/ConstDatas.h"
 #include "Fuben/WorldBoss.h"
 #include "Alchemy.h"
@@ -12,7 +11,8 @@ void showPlayerData(Player& player)
     printf("-个人信息-\n");
     printf("名称: %s\n", player.name.c_str());
     printf("创建于: %s\n", getFormatSystemTime(player.createTime).c_str());
-    printf("游玩天数: %d\n", player.getWorldData(2));
+    printf("游玩天数: %d (%dmin)\n", player.getWorldData(2),
+           player.getWorldData(1)/60 + player.getWorldData(2)*24);
     for (const std::string& k : order)
     {
         for (int i = 0; i < DATA_NUM; i++) {
@@ -124,7 +124,8 @@ showPlayerItems:
         std::cout << "请输入使用数量(默认为1，all为全部):" << std::endl;
         std::string input2;
         count = getChoice(1, player.items[item_id]->count, input2, {"all"});
-        if (count == -1) count = 1;
+        if (input2.empty()) count = 1;
+        if (count == -1) goto showPlayerItems;
         if (count == -2) goto showPlayerItems;
         if (count == -3) count = player.items[item_id]->count;
     }
